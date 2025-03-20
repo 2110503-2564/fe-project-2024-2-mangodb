@@ -49,6 +49,7 @@ interface BookingItem {
   };
 }
 
+//{{URL}}/api/v1/bookings
 interface BookingJson {
   success: boolean;
   count: number;
@@ -56,10 +57,46 @@ interface BookingJson {
   data: BookingItem[];
 }
 
+interface RatingItem {
+  _id: string;
+  hotel: string;
+  user: {
+    _id: string;
+    name: string;
+  };
+  rating: number;
+  review: string;
+  createdAt: Date;
+  upDatedAt: Date;
+  __v: number;
+}
+
+// {{URL}}/api/v1/hotels/:hotel_ID/ratings
 interface RatingJson {
   success: boolean;
   count: number;
   averageRating: number;
   pagination: Object;
-  data: [];
+  data: RatingItem[];
+}
+
+interface RoomItem {
+  size_desription: {
+    adults: number;
+    children: number;
+  };
+  _id: string;
+  hotel: string;
+  size: number;
+  totalRooms: number;
+  availableRooms: number;
+  pricePerNight: number;
+  __v: number;
+}
+
+//{{URL}}/api/v1/hotels/:hotel_ID/rooms
+interface RoomJson {
+  success: boolean;
+  count: number;
+  data: RoomItem[];
 }
