@@ -25,20 +25,20 @@ export default async function TopMenu() {
         {
           session? 
           /* If user did not log in */
-          <div className="mx-3 my-auto font-verdana font-semibold text-indigo-500">
-            <TopMenuItem title="Sign up" pageRef="/booking" 
-        className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
-        <TopMenuItem title="Log in" pageRef="/booking" 
-        className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
-          </div>
-        :
-        /* If user already log in */
-        <div className="mx-3 my-auto font-verdana font-semibold text-indigo-500 flex flex-row">
+          <div className="mx-3 my-auto font-verdana font-semibold text-indigo-500 flex flex-row">
           <TopMenuItem title="Logout" pageRef="/booking" 
         className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
           <Image src={'/img/logo.png'} className={styles.logoimg} alt='logo'
         width={0} height={0} sizes="5vh"/>
         </div>
+        :
+        /* If user already log in */
+        <div className="mx-3 my-auto font-verdana font-semibold text-indigo-500">
+            <TopMenuItem title="Sign up" pageRef="" 
+        className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
+        <TopMenuItem title="Log in" pageRef="/api/auth/signin" 
+        className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
+          </div>
         }
       </div>
     </div>
