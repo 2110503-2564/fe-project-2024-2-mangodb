@@ -1,20 +1,26 @@
 div.banner {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px;
-  margin: 0px;
-  width: 100vw;
+  width: 90vw;
   height: 80vh;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center precisely */
 }
 
 div.bannerText {
-  position: relative;
+  position: absolute;
+  left: 100px;
   top: 100px;
   z-index: 20;
-  text-align: center;
+  text-align: left;
   margin-top: 60px;
 }
 
 .image {
   opacity: 1;
+  border-radius: 30px;
 }
