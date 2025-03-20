@@ -10,31 +10,36 @@ export default async function TopMenu() {
 
   return (
     <div className={styles.menucontainer}>
-      <Image
-        src={"/img/logo.png"}
-        alt="logo"
-        className={styles.logoimg}
-        width={0}
-        height={0}
-        sizes="100vh"
-      />
-      <TopMenuItem title="Menu Item Booking" pageRef="/booking" />
+      <div className="flex flex-row absolute left-0 h-full ml-5">
+        <TopMenuItem title="MangoHotel" pageRef="/" 
+        className="mx-3 my-auto font-verdana text-[15pt] font-bold text-indigo-500"/>
+        <TopMenuItem title="Select Hotel" pageRef="/hotel" 
+        className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
+        <TopMenuItem title="Booking" pageRef="/booking" 
+        className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
+      </div>
 
-      <div className="flex flex-row absolute left-3 h-full">
-        {session ? (
-          <Link href="/api/auth/signout">
-            <div className="flex items-center   h-full px-2 text-cyan-600 text-sm">
-              Sign-Out of {session.user?.name}
-            </div>
-          </Link>
-        ) : (
-          <Link href="/api/auth/signin">
-            <div className="flex items-center   h-full px-2 text-cyan-600 text-sm">
-              Sign-In
-            </div>
-          </Link>
-        )}
-        <TopMenuItem title="My Booking" pageRef="/mybooking" />
+      <div className="flex flex-row absolute right-0 h-full ml-5">
+        <TopMenuItem title="My Booking" pageRef="/mybooking" 
+        className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
+        {
+          session? 
+          /* If user did not log in */
+          <div className="mx-3 my-auto font-verdana font-semibold text-indigo-500">
+            <TopMenuItem title="Sign up" pageRef="/booking" 
+        className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
+        <TopMenuItem title="Log in" pageRef="/booking" 
+        className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
+          </div>
+        :
+        /* If user already log in */
+        <div className="mx-3 my-auto font-verdana font-semibold text-indigo-500 flex flex-row">
+          <TopMenuItem title="Logout" pageRef="/booking" 
+        className="mx-3 my-auto font-verdana font-semibold text-indigo-500"/>
+          <Image src={'/img/logo.png'} className={styles.logoimg} alt='logo'
+        width={0} height={0} sizes="5vh"/>
+        </div>
+        }
       </div>
     </div>
   );
