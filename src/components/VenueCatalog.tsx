@@ -1,10 +1,10 @@
 import Card from "./Card";
 import Link from "next/link";
 
-export default async function VenueCatalog({
+export default async function HotelCatalog({
   venuesJson,
 }: {
-  venuesJson: Promise<VenueJson>;
+  venuesJson: Promise<HotelJson>;
 }) {
   const venueJsonReady = await venuesJson;
 
@@ -22,7 +22,7 @@ export default async function VenueCatalog({
           padding: "20px",
         }}
       >
-        {venueJsonReady.data.map((venueItem: VenueItem) => (
+        {venueJsonReady.data.map((venueItem: HotelItem) => (
           <Link href={`/venue/${venueItem.id}`} className="w-1/5">
             <Card venueName={venueItem.name} imgSrc={venueItem.picture} />
           </Link>
