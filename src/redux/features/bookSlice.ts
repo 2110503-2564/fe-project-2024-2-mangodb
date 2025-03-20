@@ -18,8 +18,9 @@ export const bookSlice = createSlice({
         const item = state.bookItems[i];
 
         if (
-          item.venue === newBooking.venue &&
-          item.bookDate === newBooking.bookDate
+          item.data.hotel._id === newBooking.data.hotel._id &&
+          item.data.checkInDate === newBooking.data.checkInDate &&
+          item.data.user === newBooking.data.user
         ) {
           state.bookItems[i] = newBooking;
           isUpdated = true;
@@ -34,10 +35,10 @@ export const bookSlice = createSlice({
     removeBooking: (state, action: PayloadAction<BookingItem>) => {
       const remainItems = state.bookItems.filter((obj) => {
         return (
-          obj.nameLastname !== action.payload.nameLastname ||
-          obj.tel !== action.payload.tel ||
-          obj.venue !== action.payload.venue ||
-          obj.bookDate !== action.payload.bookDate
+          obj.data.user !== action.payload.data.user ||
+          obj.data.hotel._id !== action.payload.data.hotel._id ||
+          obj.data.checkInDate !== action.payload.data.checkInDate ||
+          obj.data.createdAt !== action.payload.data.createdAt
         );
       });
       state.bookItems = remainItems;
