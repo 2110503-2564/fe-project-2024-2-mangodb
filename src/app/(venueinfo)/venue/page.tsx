@@ -1,5 +1,5 @@
 import CardPanel from "@/components/CardPanel";
-import getVenues from "@/libs/getVenues";
+import getVenues from "@/libs/getHotels";
 import VenueCatalog from "@/components/VenueCatalog";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
