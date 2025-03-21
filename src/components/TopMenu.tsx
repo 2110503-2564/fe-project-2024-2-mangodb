@@ -4,6 +4,7 @@ import TopMenuItem from "./TopMenuItem";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { Link } from "@mui/material";
+import { signOut } from "next-auth/react";
 
 export default async function TopMenu() {
   const session = await getServerSession(authOptions);
@@ -31,8 +32,8 @@ export default async function TopMenu() {
           session? 
           /* If user already log in */
         <div className="mx-3 my-auto font-verdana font-semibold text-indigo-500">
-          <TopMenuItem title="Logout" pageRef="/booking" 
-          className="mx-3 my-auto font-verdana font-semibold text-indigo-500 absolute right-[130px] top-[10px]"/>
+          <TopMenuItem title="Logout" pageRef="/auth/signout" 
+          className="mx-3 my-auto font-verdana font-semibold text-indigo-500 absolute right-[130px] top-[10px] hover: text-indigo-700"/>
           <Image src={'/img/logo.png'} className={styles.logoimg} alt='logo'
           width={0} height={0} sizes="5vh"/>
         </div>
@@ -51,3 +52,4 @@ export default async function TopMenu() {
     </div>
   );
 }
+

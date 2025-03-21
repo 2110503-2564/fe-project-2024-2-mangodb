@@ -4,11 +4,11 @@ import Link from "next/link";
 export default function TopMenuItem({
   title,
   pageRef,
-  className
+  className,
 }: {
   title: string;
   pageRef: string;
-  className:string
+  className:string;
 }) {
   return (
     <Link href={pageRef} className={className}>

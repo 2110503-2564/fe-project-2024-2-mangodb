@@ -112,6 +112,8 @@ interface createAndUpdateHotel {
 }
 
 interface createAndUpdateBooking {
+  hotelId: string;
+  roomId: string;
   checkInDate: Date;
   checkOutDate: Date;
 }
