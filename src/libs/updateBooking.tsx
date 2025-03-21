@@ -5,7 +5,7 @@ export default async function updateBooking(
   userCheckOutDate: Date
 ) {
   const response = await fetch(
-    `http://localhost:6000/api/v1/bookings/${bookingId}`,
+    `http://localhost:5000/api/v1/bookings/${bookingId}`,
     {
       method: "PUT",
       headers: {

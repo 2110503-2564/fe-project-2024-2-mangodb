@@ -9,7 +9,7 @@ export default async function createRoomByHotel(
   pricePerNight: number
 ) {
   const response = await fetch(
-    `http://localhost:6000/api/v1/hotels/${hotelId}/rooms`,
+    `http://localhost:5000/api/v1/hotels/${hotelId}/rooms`,
     {
       method: "POST",
       headers: {

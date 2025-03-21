@@ -6,7 +6,7 @@ export default async function updateHotel(
   hotelTel: string
 ) {
   const response = await fetch(
-    `http://localhost:6000/api/v1/hotels/${hotelId}`,
+    `http://localhost:5000/api/v1/hotels/${hotelId}`,
     {
       method: "PUT",
       headers: {
