@@ -5,15 +5,13 @@ export default function TopMenuItem({
   title,
   pageRef,
   className,
-  onClick
 }: {
   title: string;
   pageRef: string;
   className:string;
-  onClick?:() => void;
 }) {
   return (
-    <Link href={pageRef} className={className} onClick={onClick}>
+    <Link href={pageRef} className={className}>
       {title}
     </Link>
   );
