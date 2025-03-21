@@ -25,7 +25,7 @@ export default function Card({
 
   return (
     <InteractiveCard>
-      <div className="w-64 h-80 bg-[#E6EBF9] rounded-2xl shadow-md"
+      <div className="w-64 h-80 bg-[#E6EBF9] rounded-lg"
       onClick={() => router.push(`/hotel/${hid}/room`)}>
         <div className="relative w-full h-40">
         <Image src={imgSrc}
@@ -48,7 +48,7 @@ export default function Card({
             </span>
             <Link 
             href={`/${hid}/review`} 
-            className="text-sm text-gray-500 flex items-center"
+            className="text-sm text-gray-500 flex items-center hover:text-gray-700"
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
