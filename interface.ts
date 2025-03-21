@@ -27,6 +27,7 @@ interface UserItem {
     name: string;
     tel: string;
     email: string;
+    password:string,
     role: string;
     createdAt: Date;
     __v: number;
