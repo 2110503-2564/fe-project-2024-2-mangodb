@@ -4,14 +4,16 @@ import Link from "next/link";
 export default function TopMenuItem({
   title,
   pageRef,
-  className
+  className,
+  onClick
 }: {
   title: string;
   pageRef: string;
-  className:string
+  className:string;
+  onClick?:() => void;
 }) {
   return (
-    <Link href={pageRef} className={className}>
+    <Link href={pageRef} className={className} onClick={onClick}>
       {title}
     </Link>
   );
