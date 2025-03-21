@@ -19,6 +19,10 @@ const HotelSchema = new mongoose.Schema(
       unique: true,
       match: [/^\d{3}-\d{3}-\d{4}$/, "Please add a valid phone number"],
     },
+    imgSrc:{
+      type: String,
+      required: [true, "Please add Image Source"],
+    }
   },
   {
     toJSON: { virtuals: true },
