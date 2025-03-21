@@ -21,7 +21,7 @@ const HotelSchema = new mongoose.Schema(
     },
     imgSrc: {
       type: String,
-      required: [true, "Please add a imgSrc"],
+      required: [true, "Please add a Image Source"],
     },
   },
   {
