@@ -25,7 +25,7 @@ interface UserItem {
     name: string;
     tel: string;
     email: string;
-    password:string,
+    password: string;
     role: string;
     createdAt: Date;
     __v: number;
@@ -92,6 +92,7 @@ interface RoomItem {
   totalRooms: number;
   availableRooms: number;
   pricePerNight: number;
+  imgSrc: string;
   __v: number;
 }
 
@@ -127,7 +128,7 @@ interface createAndUpdateRoom {
   totalRooms: number;
   availableRooms: number;
   pricePerNight: number;
-  imgSrc: string
+  imgSrc: string;
 }
 
 interface createAndUpdateRating {

@@ -1,6 +1,4 @@
-import getHotels from "@/libs/getHotels";
 import Card from "./HotelCard";
-import Link from "next/link";
 
 export default async function HotelCatalog({
   HotelJson,
@@ -8,7 +6,7 @@ export default async function HotelCatalog({
   HotelJson: Promise<HotelJson>;
 }) {
   const hotelJsonReady = await HotelJson;
-// export default function HotelCatalog(){
+  // export default function HotelCatalog(){
   return (
     <>
       <div
@@ -24,15 +22,15 @@ export default async function HotelCatalog({
       >
         {hotelJsonReady.data.map((Item: HotelItem) => (
           // <Link href={`/room/`} className="w-1/5">
-            <Card hotelName={Item.name}
-              imgSrc={Item.imgSrc}
-              location={Item.address}
-              rating={Item.averageRating}
-              hid={Item.id}/>
+          <Card
+            hotelName={Item.name}
+            imgSrc={Item.imgSrc}
+            location={Item.address}
+            rating={Item.averageRating}
+            hid={Item.id}
+          />
           /* </Link> */
         ))}
-            
-
       </div>
     </>
   );
