@@ -44,7 +44,7 @@ export default function RoomCard({
           </p>
           <div className="flex items-center justify-between mt-2">
             <span className="text-sm font-bold bg-yellow-300 px-2 py-1 rounded-md text-black">
-              {rating.toFixed(1)}
+              {/* {rating.toFixed(1)} */}
             </span>
             <Link 
             href={`/${hid}/review`} 
