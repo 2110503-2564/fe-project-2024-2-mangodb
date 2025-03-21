@@ -1,16 +1,13 @@
 // *** GET ***
 
 interface HotelItem {
-  success: boolean;
-  data: {
-    _id: string;
-    averageRating: number;
-    name: string;
-    address: string;
-    tel: string;
-    imgSrc: string;
-    id: string;
-  };
+  _id: string;
+  averageRating: number;
+  name: string;
+  address: string;
+  tel: string;
+  imgSrc: string;
+  id: string;
 }
 
 interface HotelJson {

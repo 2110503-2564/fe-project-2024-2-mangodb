@@ -7,7 +7,7 @@ export default async function HotelCatalog({
 }: {
   HotelJson: Promise<HotelJson>;
 }) {
-  const hotelJsonReady = await getHotels();
+  const hotelJsonReady = await HotelJson;
 // export default function HotelCatalog(){
   return (
     <>
@@ -24,11 +24,11 @@ export default async function HotelCatalog({
       >
         {hotelJsonReady.data.map((Item: HotelItem) => (
           // <Link href={`/room/`} className="w-1/5">
-            <Card hotelName={Item.data.name}
-              imgSrc={Item.data.imgSrc}
-              location={Item.data.address}
-              rating={Item.data.averageRating}
-              hid={Item.data.id} />
+            <Card hotelName={Item.name}
+              imgSrc={Item.imgSrc}
+              location={Item.address}
+              rating={Item.averageRating}
+              hid={Item.id}/>
           /* </Link> */
         ))}
             

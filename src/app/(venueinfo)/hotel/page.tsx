@@ -3,9 +3,10 @@ import getVenues from "@/libs/getHotels";
 import HotelCatalog from "@/components/HotelCatalog";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
+import getHotels from "@/libs/getHotels";
 
 export default function Hotel() {
-  const venues = getVenues();
+  const hotels = getHotels();
 
   return (
     <main className="text-center p-5">
@@ -18,7 +19,7 @@ export default function Hotel() {
           </p>
         }
       >
-        <HotelCatalog venuesJson={venues} />
+        <HotelCatalog HotelJson={hotels} />
       </Suspense>
     </main>
   );
