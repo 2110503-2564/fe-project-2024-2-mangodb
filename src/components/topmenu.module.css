@@ -6,8 +6,9 @@
   left: 0px;
   right: 0px;
   z-index: 30;
-  margin-top: 7px;
+  margin-top: 3px;
   display: flex;
+  overflow: visible;
 }
 
 .logoimg {
