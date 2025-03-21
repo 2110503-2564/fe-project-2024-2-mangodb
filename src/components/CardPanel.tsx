@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Card from "./Card";
+import Card from "./HotelCard";
 import { useReducer } from "react";
 
 export default function CardPanel() {

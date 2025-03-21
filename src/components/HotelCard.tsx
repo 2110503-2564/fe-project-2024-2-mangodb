@@ -2,20 +2,26 @@
 
 import React from "react";
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Card({
   venueName,
   imgSrc,
-  onCompare,
+  location,
+  rating,
+  hid,
 }: {
   venueName: string;
   imgSrc: string;
-  onCompare?: Function;
+  location: string;
+  rating: number;
+  hid: string;
 }) {
   const [value, setValue] = useState<number | null>(0);
 
   return (
-    <div className="w-64 bg-gray-100 rounded-2xl overflow-hidden shadow-md">
+    <div className="w-64 bg-[#E6EBF9] rounded-2xl overflow-hidden shadow-md">
       {/* รูปภาพ */}
       <div className="w-full h-40 bg-gray-300 flex items-center justify-center">
         <span className="text-gray-500">Picture</span>
@@ -23,9 +29,13 @@ export default function Card({
 
       {/* ข้อมูลโรงแรม */}
       <div className="p-4">
-        <h3 className="text-lg font-semibold">{venueName}</h3>
+        <h3 className="text-lg font-semibold text-left">{venueName}</h3>
         <p className="text-sm text-gray-500 flex items-center">
-          📍 {location}
+        <img
+          src="/img/location-pin.svg"
+          alt="Location Icon"
+          className="w-4 h-4 mr-1"
+        /> {location}
         </p>
 
         {/* Rating และ View Review */}
