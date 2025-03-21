@@ -1,3 +1,5 @@
+// *** GET ***
+
 interface HotelItem {
   success: boolean;
   data: {
@@ -17,7 +19,7 @@ interface HotelJson {
   data: HotelItem[];
 }
 
-//{{URL}}/api/v1/auth/me
+// GET {{URL}}/api/v1/auth/me
 interface UserItem {
   success: boolean;
   data: {
@@ -49,7 +51,7 @@ interface BookingItem {
   };
 }
 
-//{{URL}}/api/v1/bookings
+// GET {{URL}}/api/v1/bookings
 interface BookingJson {
   success: boolean;
   count: number;
@@ -71,7 +73,7 @@ interface RatingItem {
   __v: number;
 }
 
-// {{URL}}/api/v1/hotels/:hotel_ID/ratings
+// GET {{URL}}/api/v1/hotels/:hotel_ID/ratings
 interface RatingJson {
   success: boolean;
   count: number;
@@ -94,9 +96,38 @@ interface RoomItem {
   __v: number;
 }
 
-//{{URL}}/api/v1/hotels/:hotel_ID/rooms
+// GET {{URL}}/api/v1/hotels/:hotel_ID/rooms
 interface RoomJson {
   success: boolean;
   count: number;
   data: RoomItem[];
+}
+
+// *** POST & PUT ***
+
+interface createAndUpdateHotel {
+  name: string;
+  address: string;
+  tel: string;
+}
+
+interface createAndUpdateBooking {
+  checkInDate: Date;
+  checkOutDate: Date;
+}
+
+interface createAndUpdateRoom {
+  size: number;
+  size_description: {
+    adults: number;
+    children: number;
+  };
+  totalRooms: number;
+  availableRooms: number;
+  pricePerNight: number;
+}
+
+interface createAndUpdateRating {
+  rating: number;
+  review: string;
 }
