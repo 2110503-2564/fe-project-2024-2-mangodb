@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation";
 import styles from "./banner.module.css";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import SearchBar from "./SearchBar";
 
 export default function Banner() {
   const covers = [
-    "/img/Banner-1.jpg",
-    "/img/Banner-1.jpg",
-    "/img/Banner-1.jpg",
-    "/img/Banner-1.jpg",
+    "/img/Banner-2.png",
+    "/img/Banner-2.png",
+    "/img/Banner-2.png",
+    "/img/Banner-2.png",
   ];
   const [index, setIndex] = useState(0);
   const router = useRouter();
@@ -31,9 +32,13 @@ export default function Banner() {
         <h1 className="text-4xl font-medium text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,1)] font-tiltWarp text-2xl">
           Find your dream stay-<br />easy
         </h1>
-        <h3 className="text-xl font-medium text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,1)] font-tiltWarp text-base">
+        <h3 className="text-xl font-medium text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,1)] font-tiltWarp text-base 
+         mb-10">
           bookingbest rates, exceptional service.
         </h3>
+
+        <SearchBar/>
+
       </div>
     </div>
   );
