@@ -17,7 +17,7 @@ import DateReserve from "@/components/DateReserve";
 import addBooking from "@/libs/addBooking";
 import { useSession } from "next-auth/react";
 
-// import ฟังก์ชัน getHotels และ getRoomsByHotel ที่มีอยู่ใน libs
+// ฟังก์ชัน import getHotels และ getRoomsByHotel
 import getHotels from "@/libs/getHotels";
 import getRoomsByHotel from "@/libs/getRoomsByHotel";
 
@@ -35,8 +35,8 @@ export default function Booking() {
   const dispatch = useDispatch<AppDispatch>();
   const { data: session } = useSession();
 
+  // ดึงข้อมูลโรงแรมจาก API
   useEffect(() => {
-    // ดึงข้อมูลโรงแรมจาก API
     const fetchHotels = async () => {
       try {
         const data = await getHotels(); // เรียกฟังก์ชัน getHotels ที่ import มา
@@ -51,13 +51,14 @@ export default function Booking() {
     fetchHotels(); // เรียกฟังก์ชันที่ใช้ดึงข้อมูล
   }, []); // [] หมายความว่า จะดึงข้อมูลแค่ครั้งเดียวเมื่อ component ถูก render
 
+  // ดึงข้อมูลห้องเมื่อเลือกโรงแรม
   useEffect(() => {
     if (hotel) {
-      // ดึงข้อมูลห้องเมื่อเลือกโรงแรม
       const fetchRooms = async () => {
         try {
           const data = await getRoomsByHotel(hotel);
           setRooms(data.data);
+          setRoom(""); // รีเซ็ต room เมื่อเปลี่ยนโรงแรม
         } catch (error) {
           console.error("Error fetching rooms:", error);
         }
@@ -116,15 +117,15 @@ export default function Booking() {
           <FormControl fullWidth>
             <InputLabel>Hotel</InputLabel>
             <Select
-              value={hotel}
-              onChange={(e) => setHotel(e.target.value)}
+              value={hotel} // ค่าที่เลือกใน Select ต้องสัมพันธ์กับค่าใน state
+              onChange={(e) => setHotel(e.target.value)} // เมื่อเลือกโรงแรมจะอัปเดตค่าใน state
               label="Hotel"
             >
               {loading ? (
                 <MenuItem value="">Loading...</MenuItem>
               ) : (
                 hotels.map((hotel) => (
-                  <MenuItem key={hotel._id} value={hotel._id}>
+                  <MenuItem key={hotel.id} value={hotel.id}>
                     {hotel.name}
                   </MenuItem>
                 ))
@@ -136,10 +137,10 @@ export default function Booking() {
           <FormControl fullWidth>
             <InputLabel>Room</InputLabel>
             <Select
-              value={room}
-              onChange={(e) => setRoom(e.target.value)}
+              value={room} // ค่าที่เลือกใน Select ต้องสัมพันธ์กับค่าใน state
+              onChange={(e) => setRoom(e.target.value)} // เมื่อเลือกห้องจะอัปเดตค่าใน state
               label="Room"
-              disabled={!hotel} // disable room select until hotel is selected
+              disabled={!hotel} // ปิดการเลือกห้องจนกว่าจะเลือกโรงแรม
             >
               {rooms.map((room) => (
                 <MenuItem key={room._id} value={room._id}>
