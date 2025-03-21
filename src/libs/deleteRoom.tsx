@@ -4,7 +4,7 @@ export default async function deleteRoom(
   roomId: string
 ) {
   const response = await fetch(
-    `http://localhost:6000/api/v1/hotels/${hotelId}/rooms/${roomId}`,
+    `http://localhost:5000/api/v1/hotels/${hotelId}/rooms/${roomId}`,
     {
       method: "DELETE",
       headers: {
@@ -19,3 +19,4 @@ export default async function deleteRoom(
 
   return await response.json();
 }
+//

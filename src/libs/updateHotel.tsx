@@ -3,10 +3,11 @@ export default async function updateHotel(
   hotelId: string,
   hotelName: Date,
   hotelAddress: Date,
-  hotelTel: string
+  hotelTel: string,
+  imageSrc: string,
 ) {
   const response = await fetch(
-    `http://localhost:6000/api/v1/hotels/${hotelId}`,
+    `http://localhost:5000/api/v1/hotels/${hotelId}`,
     {
       method: "PUT",
       headers: {
@@ -17,6 +18,7 @@ export default async function updateHotel(
         name: hotelName,
         address: hotelAddress,
         tel: hotelTel,
+        imgSrc: imageSrc,
       }),
     }
   );

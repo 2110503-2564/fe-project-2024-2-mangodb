@@ -7,10 +7,11 @@ export default async function updateRoom(
   roomChildren: number,
   totalRooms: number,
   availableRooms: number,
-  pricePerNight: number
+  pricePerNight: number,
+  imageSrc: string
 ) {
   const response = await fetch(
-    `http://localhost:6000/api/v1/hotels/${hotelId}/rooms/${roomId}`,
+    `http://localhost:5000/api/v1/hotels/${hotelId}/rooms/${roomId}`,
     {
       method: "PUT",
       headers: {
@@ -26,6 +27,7 @@ export default async function updateRoom(
         totalRooms: totalRooms,
         availableRooms: availableRooms,
         pricePerNight: pricePerNight,
+        imgSrc: imageSrc,
       }),
     }
   );

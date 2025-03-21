@@ -6,10 +6,11 @@ export default async function createRoomByHotel(
   roomChildren: number,
   totalRooms: number,
   availableRooms: number,
-  pricePerNight: number
+  pricePerNight: number,
+  imageSrc: string,
 ) {
   const response = await fetch(
-    `http://localhost:6000/api/v1/hotels/${hotelId}/rooms`,
+    `http://localhost:5000/api/v1/hotels/${hotelId}/rooms`,
     {
       method: "POST",
       headers: {
@@ -25,6 +26,7 @@ export default async function createRoomByHotel(
         totalRooms: totalRooms,
         availableRooms: availableRooms,
         pricePerNight: pricePerNight,
+        imgSrc: imageSrc,
       }),
     }
   );

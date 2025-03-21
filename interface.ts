@@ -8,6 +8,7 @@ interface HotelItem {
     name: string;
     address: string;
     tel: string;
+    imgSrc: string;
     id: string;
   };
 }
@@ -110,6 +111,7 @@ interface createAndUpdateHotel {
   name: string;
   address: string;
   tel: string;
+  imgSrc: string;
 }
 
 interface createAndUpdateBooking {
@@ -126,6 +128,7 @@ interface createAndUpdateRoom {
   totalRooms: number;
   availableRooms: number;
   pricePerNight: number;
+  imgSrc: string
 }
 
 interface createAndUpdateRating {

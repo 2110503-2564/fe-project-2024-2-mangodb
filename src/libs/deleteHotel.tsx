@@ -1,6 +1,6 @@
 export default async function deleteHotel(token: string, hotelId: string) {
   const response = await fetch(
-    `http://localhost:6000/api/v1/hotels/${hotelId}`,
+    `http://localhost:5000/api/v1/hotels/${hotelId}`,
     {
       method: "DELETE",
       headers: {

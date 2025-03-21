@@ -5,7 +5,7 @@ export default async function addRatingToHotel(
   userReview: string
 ) {
   const response = await fetch(
-    `http://localhost:6000/api/v1/hotels/${hotelId}/ratings`,
+    `http://localhost:5000/api/v1/hotels/${hotelId}/ratings`,
     {
       method: "POST",
       headers: {

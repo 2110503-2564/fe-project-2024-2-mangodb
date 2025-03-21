@@ -2,9 +2,10 @@ export default async function createHotel(
   token: string,
   hotelName: string,
   hotelAddress: string,
-  hoetelTel: string
+  hoetelTel: string,
+  imageSrc: string
 ) {
-  const response = await fetch(`http://localhost:6000/api/v1/hotels`, {
+  const response = await fetch(`http://localhost:5000/api/v1/hotels`, {
     method: "POST",
     headers: {
       authorization: `Bearer ${token}`,
@@ -14,6 +15,7 @@ export default async function createHotel(
       name: hotelName,
       address: hotelAddress,
       tel: hoetelTel,
+      imgSrc: imageSrc,
     }),
   });
 
