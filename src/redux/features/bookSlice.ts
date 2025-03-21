@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type BookState = {
-  bookItems: BookingItem[];
+  bookItems: createAndUpdateBooking[];
 };
 
 const initialState: BookState = { bookItems: [] };
@@ -10,35 +10,17 @@ export const bookSlice = createSlice({
   name: "booking",
   initialState,
   reducers: {
-    addBooking: (state, action: PayloadAction<BookingItem>) => {
+    addBooking: (state, action: PayloadAction<createAndUpdateBooking>) => {
       const newBooking = action.payload;
-      let isUpdated = false;
-
-      for (let i = 0; i < state.bookItems.length; i++) {
-        const item = state.bookItems[i];
-
-        if (
-          item.data.hotel._id === newBooking.data.hotel._id &&
-          item.data.checkInDate === newBooking.data.checkInDate &&
-          item.data.user === newBooking.data.user
-        ) {
-          state.bookItems[i] = newBooking;
-          isUpdated = true;
-          break;
-        }
-      }
-
-      if (!isUpdated) {
-        state.bookItems.push(newBooking);
-      }
+      state.bookItems.push(newBooking);
     },
-    removeBooking: (state, action: PayloadAction<BookingItem>) => {
+    removeBooking: (state, action: PayloadAction<createAndUpdateBooking>) => {
       const remainItems = state.bookItems.filter((obj) => {
         return (
-          obj.data.user !== action.payload.data.user ||
-          obj.data.hotel._id !== action.payload.data.hotel._id ||
-          obj.data.checkInDate !== action.payload.data.checkInDate ||
-          obj.data.createdAt !== action.payload.data.createdAt
+          obj.hotelId !== action.payload.hotelId ||
+          obj.roomId !== action.payload.roomId ||
+          obj.checkInDate.getTime() !== action.payload.checkInDate.getTime() ||
+          obj.checkOutDate.getTime() !== action.payload.checkOutDate.getTime()
         );
       });
       state.bookItems = remainItems;

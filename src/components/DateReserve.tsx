@@ -9,20 +9,31 @@ import { Dayjs } from "dayjs";
 export default function DateReserve({
   onDateChange,
 }: {
-  onDateChange: Function;
+  onDateChange: (checkIn: Dayjs | null, checkOut: Dayjs | null) => void;
 }) {
-  const [bookingDate, setBookingDate] = useState<Dayjs | null>(null);
+  const [checkInDate, setCheckInDate] = useState<Dayjs | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<Dayjs | null>(null);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker
-        className="bg-white w-full"
-        value={bookingDate}
-        onChange={(newValue) => {
-          setBookingDate(newValue);
-          onDateChange(newValue);
-        }}
-      />
+      <div>
+        <DatePicker
+          label="Check-in Date"
+          value={checkInDate}
+          onChange={(newValue) => {
+            setCheckInDate(newValue);
+            onDateChange(newValue, checkOutDate);
+          }}
+        />
+        <DatePicker
+          label="Check-out Date"
+          value={checkOutDate}
+          onChange={(newValue) => {
+            setCheckOutDate(newValue);
+            onDateChange(checkInDate, newValue);
+          }}
+        />
+      </div>
     </LocalizationProvider>
   );
 }
