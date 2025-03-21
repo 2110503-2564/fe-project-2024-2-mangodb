@@ -8,6 +8,7 @@ interface HotelItem {
     name: string;
     address: string;
     tel: string;
+    imgSrc: string;
     id: string;
   };
 }

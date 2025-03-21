@@ -5,7 +5,7 @@ export default async function userRegister(
   userRole: string,
   userPassword: string
 ) {
-  const response = await fetch("http://localhost:6000/api/v1/auth/register", {
+  const response = await fetch("http://localhost:5000/api/v1/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

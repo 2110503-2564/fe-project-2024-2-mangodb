@@ -1,14 +1,14 @@
+import getHotels from "@/libs/getHotels";
 import Card from "./HotelCard";
 import Link from "next/link";
 
-// export default async function HotelCatalog({
-//   venuesJson,
-// }: {
-//   venuesJson: Promise<HotelJson>;
-// }) {
-//   const venueJsonReady = await venuesJson;
-export default function HotelCatalog(){
-
+export default async function HotelCatalog({
+  HotelJson,
+}: {
+  HotelJson: Promise<HotelJson>;
+}) {
+  const hotelJsonReady = await getHotels();
+// export default function HotelCatalog(){
   return (
     <>
       <div
@@ -22,20 +22,16 @@ export default function HotelCatalog(){
           padding: "20px",
         }}
       >
-        {/* {venueJsonReady.data.map((venueItem: HotelItem) => (
-          <Link href={`/room/`} className="w-1/5">
-            <Card venueName="Bangkok Hotel"
-              imgSrc="your-image-url.jpg"
-              location="Bangkok, Thailand"
-              rating={5.0}
-              hid="12345" />
-          </Link>
-        ))} */}
-            <Card hotelName="Bangkok Hotel"
-              imgSrc="/img/grandtable.jpg"
-              location="Bangkok, Thailand"
-              rating={5.0}
-              hid="12345" />
+        {hotelJsonReady.data.map((Item: HotelItem) => (
+          // <Link href={`/room/`} className="w-1/5">
+            <Card hotelName={Item.data.name}
+              imgSrc={Item.data.imgSrc}
+              location={Item.data.address}
+              rating={Item.data.averageRating}
+              hid={Item.data.id} />
+          /* </Link> */
+        ))}
+            
 
       </div>
     </>

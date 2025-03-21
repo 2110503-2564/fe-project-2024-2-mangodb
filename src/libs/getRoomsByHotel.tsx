@@ -1,6 +1,6 @@
 export default async function getRoomsByHotel(hotelId: string) {
   const response = await fetch(
-    `http://localhost:6000/api/v1/hotels/${hotelId}/rooms`
+    `http://localhost:5000/api/v1/hotels/${hotelId}/rooms`
   );
 
   if (!response.ok) {
