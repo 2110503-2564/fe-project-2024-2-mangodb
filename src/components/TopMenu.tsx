@@ -33,7 +33,8 @@ export default async function TopMenu() {
           /* If user already log in */
         <div className="mx-3 my-auto font-verdana font-semibold text-indigo-500">
           <TopMenuItem title="Logout" pageRef="/auth/signout" 
-          className="mx-3 my-auto font-verdana font-semibold text-indigo-500 absolute right-[130px] top-[10px] hover: text-indigo-700"/>
+          className="mx-3 my-3 font-verdana font-semibold text-indigo-500 text-base absolute right-[130px] top-[4px] whitespace-nowrap
+          hover:text-indigo-700"/>
           <Image src={'/img/logo.png'} className={styles.logoimg} alt='logo'
           width={0} height={0} sizes="5vh"/>
         </div>
