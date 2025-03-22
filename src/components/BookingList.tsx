@@ -144,7 +144,10 @@ export default function MyBooking() {
   };
 
   return (
-    <div className="h-screen overflow-y-auto bg-gray-100 px-4 py-6">
+    <div
+      style={{ height: "95vh", overflowY: "auto" }}
+      className="bg-gray-100 px-4 py-6"
+    >
       <main className="flex flex-col items-center space-y-6">
         {bookings.map((booking) => {
           const hotel = hotelData[booking.hotel._id];
@@ -189,7 +192,7 @@ export default function MyBooking() {
                   width={400}
                   height={300}
                   objectFit="cover"
-                  className="rounded"
+                  className="rounded-md"
                 />
               </div>
 
