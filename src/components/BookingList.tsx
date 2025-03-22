@@ -11,6 +11,7 @@ import updateBooking from "@/libs/updateBooking"; // Import your updateBooking f
 import deleteBooking from "@/libs/deleteBooking"; // Import your deleteBooking function
 import DatePicker from "react-datepicker"; // Import the date picker
 import "react-datepicker/dist/react-datepicker.css"; // Import date picker styles
+import { useRouter } from "next/navigation";
 
 export default function MyBooking() {
   const { data: session } = useSession();
@@ -21,6 +22,7 @@ export default function MyBooking() {
   const [isEditing, setIsEditing] = useState<string | null>(null); // Track which booking is being edited
   const [editCheckInDate, setEditCheckInDate] = useState<Date | null>(null);
   const [editCheckOutDate, setEditCheckOutDate] = useState<Date | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -273,7 +275,8 @@ export default function MyBooking() {
                   </span>
 
                   {/* แยก review ออกมาและใช้ absolute เพื่อให้มันอยู่ข้างขวาและต่ำลงเล็กน้อย */}
-                  <span className="absolute right-0 mt-14 text-sm text-gray-600 cursor-pointer hover:underline">
+                  <span className="absolute right-0 mt-14 text-sm text-gray-600 cursor-pointer hover:underline"
+                  onClick={()=>{ router.push(`/hotel/${booking.hotel.id}/review`)}}>
                     view review →
                   </span>
                 </div>

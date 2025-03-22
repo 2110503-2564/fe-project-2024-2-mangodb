@@ -44,7 +44,7 @@ export default async function RoomCard({
       </div>
       <div className="px-4 pt-2">
         <div className="flex items-center text-[26px] font-bold text-black">
-          ${pricePerNight} <span className="text-sm font-normal text-gray-700">/night</span>
+          ${pricePerNight} <span className="text-sm font-normal text-gray-700 mt-1">/night</span>
         </div>
         <hr className="mt-2 border-gray-300" />
       </div>
