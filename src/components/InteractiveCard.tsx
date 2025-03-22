@@ -23,7 +23,7 @@ export default function InteractiveCard({
 
   return (
     <div
-      className={`${className} rounded-2xl shadow-2xl cursor-pointer transition-all duration-300 overflow-hidden`}
+      className={`${className} rounded-3xl shadow-2xl cursor-pointer transition-all duration-300 overflow-hidden`}
       onMouseOver={(e) => onCardMouseAction(e)}
       onMouseOut={(e) => onCardMouseAction(e)}
       onClick={onClick}
