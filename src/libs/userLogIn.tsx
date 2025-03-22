@@ -17,5 +17,7 @@ export default async function userLogIn(
     throw new Error("Failed to login");
   }
 
-  return await response.json();
+  const data = await response.json();
+  console.log("LOGIN RESPONSE:", data);
+  return data;  
 }

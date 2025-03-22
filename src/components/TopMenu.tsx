@@ -35,6 +35,9 @@ export default async function TopMenu() {
           <TopMenuItem title="Logout" pageRef="/auth/signout" 
           className="mx-3 my-3 font-verdana font-semibold text-indigo-500 text-base absolute right-[130px] top-[4px] whitespace-nowrap
           hover:text-indigo-700"/>
+          <TopMenuItem title="Profile" pageRef="/profile" 
+          className="mx-3 my-3 font-verdana font-semibold text-indigo-500 text-base absolute right-[440px] top-[4px] whitespace-nowrap
+          hover:text-indigo-700"/>
           <Image src={'/img/logo.png'} className={styles.logoimg} alt='logo'
           width={0} height={0} sizes="5vh"/>
         </div>
