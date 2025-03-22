@@ -80,7 +80,7 @@ interface RatingJson {
 }
 
 interface RoomItem {
-  size_desription: {
+  size_description: {
     adults: number;
     children: number;
   };

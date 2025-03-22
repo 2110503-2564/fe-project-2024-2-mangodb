@@ -26,7 +26,7 @@ export default function Card({
   return (
     <InteractiveCard className="w-1/5 h-[300px]">
       <div
-        className="w-full h-full bg-[#E6EBF9] rounded-lg"
+        className="w-full h-full bg-[#E6EBF9] rounded-xl"
         onClick={() => router.push(`/hotel/${hid}/room`)}
       >
         <div className="relative w-full h-40">
