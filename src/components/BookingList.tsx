@@ -169,13 +169,13 @@ export default function MyBooking() {
                       new Date(booking.checkOutDate)
                     )
                   }
-                  className="px-4 py-2 bg-yellow-400 text-white rounded-full hover:bg-yellow-500"
+                  className="px-4 py-1.5 bg-yellow-400 text-white text-sm font-semibold rounded-md shadow-md hover:bg-yellow-500 transition-all duration-200"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(booking._id)}
-                  className="px-4 py-2 bg-red-400 text-white rounded-full hover:bg-red-500"
+                  className="px-4 py-1.5 bg-red-400 text-white text-sm font-semibold rounded-md shadow-md hover:bg-red-500 transition-all duration-200"
                 >
                   Delete
                 </button>
@@ -216,25 +216,34 @@ export default function MyBooking() {
                 )}
 
                 {isEditing === booking._id ? (
-                  <div className="mt-3">
-                    {/* Date Picker for Check-in */}
-                    <DatePicker
-                      selected={editCheckInDate}
-                      onChange={(date) => handleDateChange(date, true)}
-                      className="mb-2"
-                      dateFormat="dd/MM/yyyy"
-                    />
-                    {/* Date Picker for Check-out */}
-                    <DatePicker
-                      selected={editCheckOutDate}
-                      onChange={(date) => handleDateChange(date, false)}
-                      className="mb-2"
-                      dateFormat="dd/MM/yyyy"
-                    />
+                  <div className="mt-3 flex items-end space-x-4">
+                    {/* Date Pickers */}
+                    <div className="flex flex-col space-y-2">
+                      <DatePicker
+                        selected={editCheckInDate}
+                        onChange={(date) =>
+                          handleDateChange(date as Date, true)
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        className="text-sm rounded-md px-2 py-1 border border-gray-300"
+                      />
+
+                      <DatePicker
+                        selected={editCheckOutDate}
+                        onChange={(date) =>
+                          handleDateChange(date as Date, false)
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        className="text-sm rounded-md px-2 py-1 border border-gray-300"
+                      />
+                    </div>
+
+                    {/* Confirm Button */}
                     <button
                       onClick={() => handleConfirmEdit(booking._id)}
-                      className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-full"
+                      className="px-3 py-1 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600 transition shadow-sm hover:shadow-md"
                     >
+                      <span className="mr-1">✅</span>
                       Confirm Edit
                     </button>
                   </div>
@@ -254,6 +263,17 @@ export default function MyBooking() {
                     </div>
                   </>
                 )}
+
+                <div className="mt-4 flex justify-between items-center relative">
+                  <span className="bg-yellow-300 text-black px-3 py-1 rounded-full text-sm font-bold">
+                    {hotel?.averageRating?.toFixed(1)}
+                  </span>
+
+                  {/* แยก review ออกมาและใช้ absolute เพื่อให้มันอยู่ข้างขวาและต่ำลงเล็กน้อย */}
+                  <span className="absolute right-0 mt-14 text-sm text-gray-600 cursor-pointer hover:underline">
+                    view review →
+                  </span>
+                </div>
               </div>
             </div>
           );
