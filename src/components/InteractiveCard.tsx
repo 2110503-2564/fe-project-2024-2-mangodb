@@ -3,10 +3,12 @@
 import React from "react";
 
 export default function InteractiveCard({ 
-  children, 
+  children,
+  className,
   onClick 
 }: { 
-  children: React.ReactNode; 
+  children: React.ReactNode;
+  className?: string;
   onClick?: () => void;
 }) {
   function onCardMouseAction(event: React.SyntheticEvent) {
@@ -21,7 +23,7 @@ export default function InteractiveCard({
 
   return (
     <div
-      className="w-1/5 h-[300px] rounded-2xl shadow-2xl cursor-pointer transition-all duration-300 overflow-hidden"
+      className={`${className} rounded-2xl shadow-2xl cursor-pointer transition-all duration-300 overflow-hidden`}
       onMouseOver={(e) => onCardMouseAction(e)}
       onMouseOut={(e) => onCardMouseAction(e)}
       onClick={onClick}

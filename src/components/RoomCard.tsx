@@ -7,59 +7,76 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import InteractiveCard from './InteractiveCard'
 
-export default function RoomCard({
-  hotelName,
+export default async function RoomCard({
+  pricePerNight,
   imgSrc,
   location,
-  PricePerNight,
+  size,
+  amoutOfPeople,
   hid,
 }: {
-  hotelName: string;
+  pricePerNight: string;
   imgSrc: string;
   location: string;
-  PricePerNight: number;
+  size: number;
   hid: string;
+  amoutOfPeople: number
 }) {
   const [value, setValue] = useState<number | null>(0);
   const router = useRouter();
-
   return (
-    <InteractiveCard>
-      <div className="w-64 h-80 bg-[#E6EBF9] rounded-lg"
-      onClick={() => router.push(`/hotel/${hid}/room`)}>
-        <div className="relative w-full h-40">
-        <Image src={imgSrc}
-                alt='Product Picture'
-                fill={true}
-                className='object-cover rounded-t-lg'/>
+    <InteractiveCard className="w-1/6 h-[300px] ">
+      <div
+      className="w-full h-full bg-[#E6EBF9] rounded-lg"
+      style={{
+        fontFamily: "sans-serif",
+      }}
+      >
+      <div className="relative w-full h-1/2">
+        <Image
+          src={imgSrc}
+          alt="Product Picture"
+          fill={true}
+          className="object-cover rounded-t-lg"
+        />
+      </div>
+      <div className="px-4 pt-2">
+        <div className="flex items-center text-[22px] font-bold text-black">
+          ${pricePerNight} <span className="text-sm font-normal text-gray-700">/night</span>
         </div>
-        <div className="p-4 bg-[#E6EBF9]">
-          <h3 className="text-lg font-semibold text-left">{hotelName}</h3>
-          <p className="text-sm text-gray-500 flex items-center">
+
+        <div className="flex items-center text-sm text-gray-700 mt-1">
           <img
             src="/img/location-pin.svg"
             alt="Location Icon"
             className="w-4 h-4 mr-1"
-          /> {location}
-          </p>
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-sm font-bold bg-yellow-300 px-2 py-1 rounded-md text-black">
-              {/* {rating.toFixed(1)} */}
-            </span>
-            <Link 
-            href={`/${hid}/review`} 
-            className="text-sm text-gray-500 flex items-center hover:text-gray-700"
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              router.push(`hotel/${hid}/review`);
-            }}
-          >
-            view review →
-          </Link>
-          </div>
+          />{" "}
+            {location}
         </div>
       </div>
+
+      <hr className="border-gray-300 my-2 mx-4" />
+
+      {/* Size + People */}
+      <div className="flex justify-between px-4 pb-3 text-sm text-gray-500">
+        <div className="flex items-center">
+          <img
+            src="/img/ruler.svg"
+            alt="Location Icon"
+            className="w-4 h-4 mr-1"
+          />{" "}
+          {size} sqft
+        </div>
+        <div className="flex items-center">
+          <img
+            src="/img/user.png"
+            alt="Location Icon"
+            className="w-4 h-4 mr-1"
+          />{" "}
+          5 people
+        </div>
+      </div>
+    </div>
     </InteractiveCard>
   );
 }

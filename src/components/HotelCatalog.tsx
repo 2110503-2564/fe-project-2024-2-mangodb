@@ -8,7 +8,11 @@ export default async function HotelCatalog({
   const hotelJsonReady = await HotelJson;
   // export default function HotelCatalog(){
   return (
-    <>
+    <div style={{
+      height: "90vh",
+      overflowY: "auto",
+      padding: "20px",
+    }}>
       <div
         style={{
           display: "flex",
@@ -30,6 +34,6 @@ export default async function HotelCatalog({
           /* </Link> */
         ))}
       </div>
-    </>
+    </div>
   );
 }
