@@ -82,8 +82,8 @@ export default function Booking() {
       const bookingData = {
         hotelId: hotel, // hotelId
         roomId: room, // roomId
-        checkInDate: checkInDate.toDate(),
-        checkOutDate: checkOutDate.toDate(),
+        checkInDate: checkInDate.toISOString(),
+        checkOutDate: checkOutDate.toISOString(),
       };
 
       if (!session?.user?.token) {

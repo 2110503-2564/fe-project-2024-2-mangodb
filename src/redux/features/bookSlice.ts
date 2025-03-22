@@ -19,8 +19,8 @@ export const bookSlice = createSlice({
         return (
           obj.hotelId !== action.payload.hotelId ||
           obj.roomId !== action.payload.roomId ||
-          obj.checkInDate.getTime() !== action.payload.checkInDate.getTime() ||
-          obj.checkOutDate.getTime() !== action.payload.checkOutDate.getTime()
+          obj.checkInDate !== action.payload.checkInDate ||
+          obj.checkOutDate !== action.payload.checkOutDate
         );
       });
       state.bookItems = remainItems;

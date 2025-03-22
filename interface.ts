@@ -33,21 +33,19 @@ interface UserItem {
 }
 
 interface BookingItem {
-  success: boolean;
-  data: {
+  _id: string;
+  user: string;
+  hotel: {
     _id: string;
-    user: string;
-    hotel: {
-      _id: string;
-      name: string;
-      tel: string;
-      id: string;
-    };
-    checkInDate: Date;
-    checkOutDate: Date;
-    createdAt: Date;
-    __v: number;
+    name: string;
+    tel: string;
+    id: string;
   };
+  room: string;
+  checkInDate: Date;
+  checkOutDate: Date;
+  createdAt: Date;
+  __v: number;
 }
 
 // GET {{URL}}/api/v1/bookings
@@ -115,8 +113,8 @@ interface createAndUpdateHotel {
 interface createAndUpdateBooking {
   hotelId: string;
   roomId: string;
-  checkInDate: Date;
-  checkOutDate: Date;
+  checkInDate: string;
+  checkOutDate: string;
 }
 
 interface createAndUpdateRoom {
