@@ -23,6 +23,8 @@ export default function MyBooking() {
         const bookingsData = bookingRes.data;
         setBookings(bookingsData);
 
+        console.log("Bookings Data:", bookingsData); // Check bookings data
+
         // Fetch hotel & room info
         const hotelMap: Record<string, any> = {};
         const roomMap: Record<string, any> = {};
@@ -31,17 +33,21 @@ export default function MyBooking() {
           const hotelId = booking.hotel._id;
           const roomId = booking.room;
 
+          // Fetch hotel only if not already fetched
           if (!hotelMap[hotelId]) {
             const hotelRes = await getHotel(hotelId);
             hotelMap[hotelId] = hotelRes.data;
+            console.log("Fetched hotel:", hotelRes.data); // Check fetched hotel data
           }
 
+          // Fetch room only if not already fetched
           if (!roomMap[roomId]) {
             const roomsRes = await getRoomsByHotel(hotelId);
             const matchedRoom = roomsRes.data.find(
               (r: any) => r._id === roomId
             );
             roomMap[roomId] = matchedRoom;
+            console.log("Fetched room:", matchedRoom); // Check fetched room data
           }
         }
 
@@ -77,6 +83,14 @@ export default function MyBooking() {
         {bookings.map((booking) => {
           const hotel = hotelData[booking.hotel._id];
           const room = roomData[booking.room];
+
+          console.log("Booking:", booking);
+          console.log("Hotel Data:", hotel);
+          console.log("Room Data:", room);
+
+          if (!hotel || !room) {
+            return null; // In case hotel or room is missing
+          }
 
           return (
             <div
