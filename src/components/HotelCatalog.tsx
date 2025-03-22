@@ -11,13 +11,11 @@ export default async function HotelCatalog({
     <>
       <div
         style={{
-          margin: "20px",
           display: "flex",
-          flexDirection: "row",
           flexWrap: "wrap",
-          justifyContent: "space-around",
-          alignContent: "space-around",
-          padding: "20px",
+          justifyContent: "center",
+          gap: "30px",
+          padding: "40px",
         }}
       >
         {hotelJsonReady.data.map((Item: HotelItem) => (
