@@ -22,7 +22,12 @@ export const authOptions: AuthOptions = {
 
         if (user) {
           // Any object returned will be saved in user property of the JWT
-          return user;
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            tel: user.tel,
+          };
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;
