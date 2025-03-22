@@ -25,16 +25,47 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSignUp} className="p-6 bg-white rounded-lg shadow-lg w-96">
-        <input type="text" placeholder="Full Name" value={userName} onChange={(e) => setUserName(e.target.value)} className="p-2 border rounded mb-4 w-full" />
-        <input type="tel" placeholder="Phone Number" value={userTel} onChange={(e) => setUserTel(e.target.value)} className="p-2 border rounded mb-4 w-full" />
-        <input type="email" placeholder="Email" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} className="p-2 border rounded mb-4 w-full" />
-        <input type="password" placeholder="Password" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} className="p-2 border rounded mb-4 w-full" />
-        <button type="submit" disabled={loading} className="px-4 py-2 bg-blue-500 text-white rounded w-full">
-          {loading ? "Signing up..." : "Sign Up"}
-        </button>
-      </form>
+    <div className="bg-[url(/img/bg_signup.png)] bg-cover w-screen h-screen flex-row flex">
+
+        <div className="flex flex-col justify-center content-center ml-[15vw]">
+          <div className="text-7xl mb-1 font-tiltWarp text-white">Sign-Up</div>
+          <div className="text-xl mb-4 font-tiltWarp text-white">Hello! Let's go join with us.</div>
+        </div>
+
+        <div className="flex flex-col justify-center content-center ml-[15vw] inline-block">
+          <div className="bg-gray-800 bg-opacity-50 px-10 pb-9 pt-5 rounded-3xl flex flex-col ">
+
+            <div className="font-semibold text-white">Username</div>
+            <input type="text" placeholder="Username" value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="p-2 border rounded-xl mb-3 pr-20"
+            />
+
+            <div className="font-semibold text-white">Tel</div>
+            <input type="text" placeholder="Tel" value={userTel}
+              onChange={(e) => setUserTel(e.target.value)}
+              className="p-2 border rounded-xl mb-3"
+            />
+
+            <div className="font-semibold text-white">Email</div>
+            <input type="email" placeholder="Email" value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+              className="p-2 border rounded-xl mb-3 pr-20"
+            />
+
+            <div className="font-semibold text-white">Password</div>
+            <input type="password" placeholder="Password" value={userPassword}
+              onChange={(e) => setUserPassword(e.target.value)}
+              className="p-2 border rounded-xl mb-6"
+            />
+
+            <button onClick={handleSignUp} 
+            className="text-white rounded-xl 'rounded-2xl bg-[#6A8BFA] 
+            hover:bg-[#ffd60b] hover:text-gray-700 px-3 py-2 font-sans font-medium ">
+            Sign In
+            </button>
+          </div>
+        </div>
     </div>
   );
 }
