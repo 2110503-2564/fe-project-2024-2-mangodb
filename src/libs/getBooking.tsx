@@ -1,6 +1,6 @@
 export default async function getBooking(token: string, bookingId: string) {
   const response = await fetch(
-    `http://localhost:5000/api/v1/bookings/${bookingId}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/bookings/${bookingId}`,
     {
       method: "GET",
       headers: {

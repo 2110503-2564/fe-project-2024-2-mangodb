@@ -3,7 +3,7 @@ export default async function getRoomsByCapacity(
   children: number
 ) {
   const response = await fetch(
-    `http://localhost:5000/api/v1/hotels/rooms/capacity?adults=${adults}&children=${children}`
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/hotels/rooms/capacity?adults=${adults}&children=${children}`
   );
 
   if (!response.ok) {

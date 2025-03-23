@@ -4,10 +4,10 @@ export default async function updateHotel(
   hotelName: Date,
   hotelAddress: Date,
   hotelTel: string,
-  imageSrc: string,
+  imageSrc: string
 ) {
   const response = await fetch(
-    `http://localhost:5000/api/v1/hotels/${hotelId}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/hotels/${hotelId}`,
     {
       method: "PUT",
       headers: {

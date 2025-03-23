@@ -1,6 +1,6 @@
-export default async function getUserProfile(token: string) {
+export default async function getOtherUser(token: string, userId: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/me`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/${userId}`,
     {
       method: "GET",
       headers: {
@@ -10,7 +10,7 @@ export default async function getUserProfile(token: string) {
   );
 
   if (!response.ok) {
-    throw new Error("Cannot get user profile");
+    throw new Error("Cannot get other user");
   }
 
   return await response.json();
