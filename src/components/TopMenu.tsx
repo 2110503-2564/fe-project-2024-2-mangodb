@@ -46,23 +46,23 @@ export default function TopMenu() {
     >
       {/* Left Section: Logo & Main Menu */}
       <div className="flex items-center space-x-10">
-        <Image
-          src="/img/mango-31-512.png"
-          width={48}
-          height={48}
-          alt="MangoHotel"
-        />
-
-        <div className="hidden md:flex space-x-6">
+        <div className="hidden md:flex items-center">
           <TopMenuItem
             title="MangoHotel"
             pageRef="/"
             className="text-lg font-bold text-indigo-500"
           />
+          <Image
+          src="/img/mango-31-512.png"
+          width={48}
+          height={48}
+          alt="MangoHotel"
+          className="mr-10"
+          />
           <TopMenuItem
             title="Select Hotel"
             pageRef="/hotel"
-            className="text-base font-semibold text-indigo-500 hover:text-indigo-700 "
+            className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-8"
           />
           {session ? (
             <TopMenuItem
