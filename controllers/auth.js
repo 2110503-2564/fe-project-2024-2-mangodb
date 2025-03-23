@@ -9,10 +9,13 @@ exports.register = async (req, res, next) => {
     const { name, tel, email, password, role, hotelId } = req.body;
 
     if (role === "admin hotel" && !hotelId) {
-      return res.status(400).json({ success: false, msg: "Hotel ID is required for admin hotel" });
+      return res
+        .status(400)
+        .json({ success: false, msg: "Hotel ID is required for admin hotel" });
     }
 
-    const convertedHotelId = role === "admin hotel" ? new mongoose.Types.ObjectId(hotelId) : undefined;
+    const convertedHotelId =
+      role === "admin hotel" ? new mongoose.Types.ObjectId(hotelId) : undefined;
 
     //Create user
     const user = await User.create({
@@ -113,5 +116,17 @@ exports.logout = async (req, res, next) => {
     httpOnly: true,
   });
 
-  res.status(200).json({ success: true, msg:"Logout Successful!!" });
+  res.status(200).json({ success: true, msg: "Logout Successful!!" });
+};
+
+//@desc     Get other user
+//@route    GET /api/v1/auth/:id
+//@access   Private
+exports.getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    console.log(error);
+  }
 };
