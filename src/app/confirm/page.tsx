@@ -50,7 +50,7 @@ export default function ConfirmPage() {
       );
 
       alert("Booking confirmed!");
-      router.push("/my-booking");
+      router.push("/mybooking");
     } catch (error) {
       console.error("Booking failed:", error);
     }
@@ -58,32 +58,37 @@ export default function ConfirmPage() {
 
   return (
     <main className="px-10 pt-16 text-gray-800">
-      <h1 className="text-4xl font-bold mb-2">{hotelName}</h1>
-      <p className="text-gray-500 text-lg mb-4">📍 {hotelLocation}</p>
+      <h1 className="text-4xl font-extrabold mb-2">{hotelName}</h1>
+      <p className="text-gray-500 text-lg mb-1 font-extrabold flex items-center">
+        <img
+        src="/img/location-pin.svg"
+        alt="Location Icon"
+        className="w-4 h-4 mr-1"
+        />{" "} {hotelLocation}</p>
 
-      <p className="text-md text-blue-600 font-medium mb-1">
-        adult: <span className="font-bold">{adult}</span>, children: <span className="font-bold">{children}</span>
+      <p className="text-md text-[#456DF2] font-semibold font-medium mb-1">
+        adult: <span className="font-extrabold text-2xl">{adult}</span>, children: <span className="font-bold text-2xl">{children}</span>
       </p>
 
-      <p className="text-md font-semibold text-gray-700">
-        Total length of stay: <span className="text-blue-600 font-bold">{nights} nights</span>
+      <p className="text-md font-semibold text-[#456DF2]">
+        Total length of stay: <span className="font-extrabold text-2xl">{nights} nights</span>
       </p>
 
       <div className="flex gap-10 mt-3">
         <div>
-          <p className="text-sm text-gray-500">check-in</p>
-          <p className="text-lg font-bold text-blue-600">{checkIn}</p>
+          <p className="text-sm text-[#456DF2] font-extrabold">check-in</p>
+          <p className="text-lg font-extrabold text-[#456DF2]">{checkIn}</p>
         </div>
         <div>
-          <p className="text-sm text-gray-500">check-out</p>
-          <p className="text-lg font-bold text-blue-600">{checkOut}</p>
+          <p className="text-sm text-[#456DF2] font-extrabold">check-out</p>
+          <p className="text-lg font-extrabold text-[#456DF2]">{checkOut}</p>
         </div>
       </div>
 
       <hr className="my-4 border-gray-300" />
 
       <p className="text-md font-medium text-gray-700">
-        Price: <span className="text-blue-600 font-bold">THB {price}</span>
+        Price: <span className="text-[#456DF2] font-extrabold">THB {price}</span>
       </p>
 
       <Button
