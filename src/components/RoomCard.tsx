@@ -68,12 +68,13 @@ export default async function RoomCard({
           adult: <span className="text-gray-700 mr-1 ml-1 font-bold">{adult}</span> children: <span className="text-gray-700 mr-1 ml-1 font-bold-800">{children}</span>
         </div>
       </div>
+      <Link href={`/booking?adult=${adult}&children=${children}&hotelid=${hid}`}>
       <button
-        onClick={() => router.push(`/book/${hid}`)}
         className="self-start mt-3 bg-yellow-400 hover:bg-yellow-500 text-white text-sm py-1 px-4 rounded-md"
       >
         Book
       </button>
+      </Link>
     </div>
     </InteractiveCard>
   );

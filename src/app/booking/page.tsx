@@ -19,8 +19,18 @@ import { useSession } from "next-auth/react";
 
 import getHotels from "@/libs/getHotels";
 import getRoomsByHotel from "@/libs/getRoomsByHotel";
+import { useSearchParams } from "next/navigation";
+import getHotel from "@/libs/getHotel";
 
-export default function Booking() {
+export default  function Booking() {
+  
+  const urlParams = useSearchParams()
+  const adult = urlParams.get('adult')
+  const children = urlParams.get('children')
+  const hid = urlParams.get('hotelid');
+
+
+
   const [hotel, setHotel] = useState<string>("");
   const [room, setRoom] = useState<string>("");
   const [checkInDate, setCheckInDate] = useState<Dayjs | null>(null);
@@ -40,27 +50,42 @@ export default function Booking() {
         const data = await getHotels();
         setHotels(data.data);
         setLoading(false);
+        if (hid) {
+          const hotelData = await getHotel(hid);
+          setHotel(hotelData.data.id);
+        }
       } catch (error) {
         console.error("Error fetching hotels:", error);
         setLoading(false);
       }
     };
-
     fetchHotels();
   }, []);
 
   useEffect(() => {
-    if (hotel) {
+    if (hotel && adult && children) {
       const fetchRooms = async () => {
         try {
           const data = await getRoomsByHotel(hotel);
           setRooms(data.data);
-          setRoom("");
+          const allRooms = data.data;
+          setRooms(allRooms);
+
+          const matchedRoom = allRooms.find((room: { size_description: { adults: number; children: number; }; }) =>
+            room.size_description.adults === Number(adult) &&
+            room.size_description.children === Number(children)
+          );
+
+          if (matchedRoom) {
+            setRoom(matchedRoom._id);
+          } else {
+            setRoom(""); // fallback ถ้าไม่เจอ
+          }
         } catch (error) {
           console.error("Error fetching rooms:", error);
         }
       };
-
+    
       fetchRooms();
     }
   }, [hotel]);
