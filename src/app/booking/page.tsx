@@ -9,31 +9,20 @@ import {
   Button,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
-import { addBooking as reduxAddBooking } from "@/redux/features/bookSlice";
 import { Dayjs } from "dayjs";
 import DateReserve from "@/components/DateReserve";
-import addBooking from "@/libs/addBooking";
-import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import getHotels from "@/libs/getHotels";
 import getRoomsByHotel from "@/libs/getRoomsByHotel";
-import { useSearchParams } from "next/navigation";
-import getHotel from "@/libs/getHotel";
-import { useRouter } from "next/navigation";
 
 export default function Booking() {
-  
-  const urlParams = useSearchParams()
-  const adult = urlParams.get('adult')
-  const children = urlParams.get('children')
-  const hid = urlParams.get('hotelid');
-
-
-
-  const [hotel, setHotel] = useState<string>("");
-  const [room, setRoom] = useState<string>("");
+  const searchParams = useSearchParams();
+  const hotelId = searchParams.get("hotelId");
+  const roomId = searchParams.get("roomId");
+  const [hotel, setHotel] = useState<string>(hotelId || "");
+  const [room, setRoom] = useState<string>(roomId || "");
   const [checkInDate, setCheckInDate] = useState<Dayjs | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Dayjs | null>(null);
   const [totalLength, setTotalLength] = useState<number>(0);
@@ -41,21 +30,17 @@ export default function Booking() {
   const [hotels, setHotels] = useState<any[]>([]);
   const [rooms, setRooms] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [selectedRoom, setSelectedRoom] = useState<any>(null); // เก็บข้อมูลห้องที่เลือก
+
   const router = useRouter();
 
-  const dispatch = useDispatch<AppDispatch>();
-  const { data: session } = useSession();
-
+  // Fetch hotels
   useEffect(() => {
     const fetchHotels = async () => {
       try {
         const data = await getHotels();
         setHotels(data.data);
         setLoading(false);
-        if (hid) {
-          const hotelData = await getHotel(hid);
-          setHotel(hotelData.data.id);
-        }
       } catch (error) {
         console.error("Error fetching hotels:", error);
         setLoading(false);
@@ -65,32 +50,37 @@ export default function Booking() {
   }, []);
 
   useEffect(() => {
-    if (hotel && adult && children) {
+    if (room && rooms.length > 0) {
+      const foundRoom = rooms.find((r) => r._id === room);
+      if (foundRoom) {
+        setSelectedRoom(foundRoom);
+      }
+    }
+  }, [room, rooms]);
+
+  // Fetch rooms when hotel is selected
+  useEffect(() => {
+    if (hotel) {
       const fetchRooms = async () => {
         try {
           const data = await getRoomsByHotel(hotel);
           setRooms(data.data);
-          const allRooms = data.data;
-          setRooms(allRooms);
-
-          const matchedRoom = allRooms.find((room: { size_description: { adults: number; children: number; }; }) =>
-            room.size_description.adults === Number(adult) &&
-            room.size_description.children === Number(children)
-          );
-
-          if (matchedRoom) {
-            setRoom(matchedRoom._id);
-          } else {
-            setRoom("");
-          }
         } catch (error) {
           console.error("Error fetching rooms:", error);
         }
       };
-    
       fetchRooms();
     }
   }, [hotel]);
+
+  useEffect(() => {
+    if (hotelId) {
+      setHotel(hotelId);
+    }
+    if (roomId) {
+      setRoom(roomId);
+    }
+  }, [hotelId, roomId]);
 
   const handleDateChange = (checkIn: Dayjs | null, checkOut: Dayjs | null) => {
     if (checkIn && checkOut) {
@@ -102,20 +92,30 @@ export default function Booking() {
     }
   };
 
+  const handleRoomChange = (roomId: string) => {
+    const selectedRoom = rooms.find((room) => room._id === roomId);
+    setRoom(roomId);
+    setSelectedRoom(selectedRoom);
+  };
+
   const makeBooking = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (hotel && room && checkInDate && checkOutDate) {
+    if (hotel && room && checkInDate && checkOutDate && selectedRoom) {
       const checkInStr = checkInDate.toISOString();
       const checkOutStr = checkOutDate.toISOString();
       const hotelObj = hotels.find((h) => h.id === hotel);
       const hotelName = hotelObj?.name || "Hotel";
       const hotelLocation = hotelObj?.address || "Bangkok, Thailand";
-  
+      const adult = selectedRoom.size_description.adults;
+      const children = selectedRoom.size_description.children;
+
       router.push(
         `/confirm?hotelId=${hotel}&roomId=${room}&hotelName=${encodeURIComponent(
           hotelName
-        )}&hotelLocation=${encodeURIComponent(hotelLocation)}&adult=${adult}&children=${children}&checkIn=${checkInStr}&checkOut=${checkOutStr}&nights=${totalLength}&price=${price}`
+        )}&hotelLocation=${encodeURIComponent(
+          hotelLocation
+        )}&adult=${adult}&children=${children}&checkIn=${checkInStr}&checkOut=${checkOutStr}&nights=${totalLength}&price=${price}`
       );
     }
   };
@@ -158,9 +158,8 @@ export default function Booking() {
             <InputLabel>Room</InputLabel>
             <Select
               value={room}
-              onChange={(e) => setRoom(e.target.value)}
+              onChange={(e) => handleRoomChange(e.target.value)} // Update room and selectedRoom when user changes room
               label="Room"
-              disabled={!hotel}
             >
               {rooms.map((room) => (
                 <MenuItem key={room._id} value={room._id}>

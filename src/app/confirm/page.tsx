@@ -61,7 +61,7 @@ const formattedCheckOut = checkOut ? dayjs(checkOut).format("ddd DD MMM") : "";
   };
 
   return (
-    <main className="px-10 pt-16 text-gray-800">
+    <main className="px-10 pt-16 text-gray-800 bg-gray-50">
       <h1 className="text-4xl font-extrabold mb-2">{hotelName}</h1>
       <p className="text-gray-500 text-lg mb-1 font-extrabold flex items-center">
         <img
@@ -97,13 +97,12 @@ const formattedCheckOut = checkOut ? dayjs(checkOut).format("ddd DD MMM") : "";
         Price: <span className="font-extrabold text-2xl">THB {price}</span>
       </p>
 
-      <Button
-        variant="contained"
-        className="mt-5 bg-[#456DF2] text-black px-6 py-2 rounded-xl"
+      <button
         onClick={handleConfirm}
-      >
+        className="mt-3 bg-[#456DF2] text-white font-bold px-4 py-2 rounded-xl hover:bg-[#3552C0] transition-all"
+        >
         Confirm
-      </Button>
+        </button>
     </main>
   );
 }
