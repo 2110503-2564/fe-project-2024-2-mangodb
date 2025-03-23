@@ -21,8 +21,9 @@ import getHotels from "@/libs/getHotels";
 import getRoomsByHotel from "@/libs/getRoomsByHotel";
 import { useSearchParams } from "next/navigation";
 import getHotel from "@/libs/getHotel";
+import { useRouter } from "next/navigation";
 
-export default  function Booking() {
+export default function Booking() {
   
   const urlParams = useSearchParams()
   const adult = urlParams.get('adult')
@@ -40,6 +41,7 @@ export default  function Booking() {
   const [hotels, setHotels] = useState<any[]>([]);
   const [rooms, setRooms] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const router = useRouter();
 
   const dispatch = useDispatch<AppDispatch>();
   const { data: session } = useSession();
@@ -79,7 +81,7 @@ export default  function Booking() {
           if (matchedRoom) {
             setRoom(matchedRoom._id);
           } else {
-            setRoom(""); // fallback ถ้าไม่เจอ
+            setRoom("");
           }
         } catch (error) {
           console.error("Error fetching rooms:", error);
@@ -104,26 +106,17 @@ export default  function Booking() {
     e.preventDefault();
 
     if (hotel && room && checkInDate && checkOutDate) {
-      const bookingData = {
-        hotelId: hotel, // hotelId
-        roomId: room, // roomId
-        checkInDate: checkInDate.toISOString(),
-        checkOutDate: checkOutDate.toISOString(),
-      };
-
-      if (!session?.user?.token) {
-        console.error("Token not available");
-        return;
-      }
-
-      await addBooking(
-        session?.user.token,
-        hotel,
-        room,
-        checkInDate.toDate(),
-        checkOutDate.toDate()
+      const checkInStr = checkInDate.toISOString();
+      const checkOutStr = checkOutDate.toISOString();
+      const hotelObj = hotels.find((h) => h.id === hotel);
+      const hotelName = hotelObj?.name || "Hotel";
+      const hotelLocation = hotelObj?.address || "Bangkok, Thailand";
+  
+      router.push(
+        `/confirm?hotelId=${hotel}&roomId=${room}&hotelName=${encodeURIComponent(
+          hotelName
+        )}&hotelLocation=${encodeURIComponent(hotelLocation)}&adult=${adult}&children=${children}&checkIn=${checkInStr}&checkOut=${checkOutStr}&nights=${totalLength}&price=${price}`
       );
-      dispatch(reduxAddBooking(bookingData));
     }
   };
 
