@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   TextField,
@@ -125,9 +125,9 @@ export default function Booking() {
       className="flex justify-center bg bg-[url(/img/bg_booking.png)]"
       style={{ height: "calc(100vh - 50px)" }}
     >
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md h-[560px] mt-[100px]">
+      <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-md h-[53vh] mt-[13vh]">
         <div
-          className="text-2xl mb-4 text-center font-semibold"
+          className="text-2xl mb-4 text-center font-semibold text-gray-700"
           style={{ marginTop: "-2px", marginBottom: "28px" }}
         >
           Hotel Booking
@@ -163,7 +163,8 @@ export default function Booking() {
             >
               {rooms.map((room) => (
                 <MenuItem key={room._id} value={room._id}>
-                  {room.size_description.adults} Adults,{" "}
+                  {room.size} sqm,{" "}
+                  {room.size_description.adults} Adults{" "}
                   {room.size_description.children} Children
                 </MenuItem>
               ))}
@@ -174,30 +175,32 @@ export default function Booking() {
           <DateReserve onDateChange={handleDateChange} />
 
           {/* Total Length of Stay and Price */}
-          <TextField
-            label="Total Length of Stay (Days)"
-            variant="standard"
-            fullWidth
-            value={totalLength}
-            inputProps={{ readOnly: true }}
-          />
-          <TextField
-            label="Price"
-            variant="standard"
-            fullWidth
-            value={price}
-            inputProps={{ readOnly: true }}
-          />
+          <div className="font-base text-gray-500">
+            Total {totalLength} Days, {price} $
+          </div>
 
           {/* Submit Button */}
           <Button
             type="submit"
             variant="contained"
             fullWidth
-            style={{ marginTop: "25px" }}
+            sx={{
+              marginTop: "15px",
+              backgroundColor: "#6A8BFA", // Custom primary color
+              color: "white",
+              fontWeight: "bold",
+              padding: "12px 20px",
+              borderRadius: "8px",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Adds shadow
+              "&:hover": {
+                backgroundColor: "#ffd60b", // Yellow on hover
+                color: "#333",
+              },
+            }}
           >
             Book Now
           </Button>
+
         </form>
       </div>
     </main>

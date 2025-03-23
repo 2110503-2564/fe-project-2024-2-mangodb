@@ -5,17 +5,32 @@ import { useParams } from "next/navigation";
 import getRatingsByHotel from "@/libs/getRatingsByHotel";
 import addRatingToHotel from "@/libs/addRatingToHotel";
 import { useSession } from "next-auth/react";
+import Rating from '@mui/material/Rating';
+import * as React from 'react';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { styled } from '@mui/material/styles';
 
 export default function ReviewPage() {
   const { data: session } = useSession();
   const { hid } = useParams(); // Get hid from URL
-  const [reviews, setReviews] = useState<RatingItem[]>([]);
+  const [reviews, setReviews] = useState<RatingJson>();
   const [userRating, setUserRating] = useState(5);
   const [userReview, setUserReview] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const params = useParams();
-  console.log("Params:", params);
+  const [value, setValue] = React.useState<number | null>(3);
+  const [hover, setHover] = React.useState(-1);
+  
+  const StyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+      color: '#ff6d75',
+    },
+    '& .MuiRating-iconHover': {
+      color: '#ff3d47',
+    },
+  });
   
 
   // Fetch reviews when the page loads
@@ -69,12 +84,20 @@ export default function ReviewPage() {
 
       {/* Display reviews */}
       {error && <p className="text-red-500">{error}</p>}
-      {reviews.count > 0 ? (
+      {reviews && reviews.count > 0 ? (
         <ul className="mt-4">
           {reviews.data.map((review) => (
-            <li key={review.hotel} className="p-4 border rounded-md mb-2">
-              <strong>{review.user.name}</strong> - rating {review.rating}/5
-              <p>{review.review}</p>
+            <li key={review.hotel} className="p-4 border rounded-md mb-2 w-[20vw] justify">
+              <p className="inline-block font-semibold text-lg">{review.user.name}</p> 
+              <StyledRating
+                name="customized-color"
+                defaultValue={review.rating}
+                getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
+                icon={<FavoriteIcon fontSize="inherit" />}
+                emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                readOnly
+              />
+              <p className="text-gray-700">{review.review}</p>
               <small className="text-gray-500">
                 {new Date(review.createdAt).toLocaleDateString()}
               </small>
@@ -88,17 +111,14 @@ export default function ReviewPage() {
       {/* Add Review Form */}
       <form onSubmit={handleSubmit} className="mt-6 p-4 border rounded-md">
         <label className="block mb-2 font-semibold">Rating:</label>
-        <select
-          value={userRating}
-          onChange={(e) => setUserRating(Number(e.target.value))}
-          className="border p-2 rounded mb-4"
-        >
-          {[1, 2, 3, 4, 5].map((num) => (
-            <option key={num} value={num}>
-              {num} Stars
-            </option>
-          ))}
-        </select>
+        <StyledRating
+        name="customized-color"
+        defaultValue={userRating}
+        getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
+        icon={<FavoriteIcon fontSize="inherit" />}
+        emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+        onChange={(e, newValue)=>{setUserRating(newValue as number)}}
+      />
 
         <label className="block mb-2 font-semibold">Review:</label>
         <textarea
@@ -111,7 +131,7 @@ export default function ReviewPage() {
         <button
           type="submit"
           disabled={loading}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="text-white rounded-xl bg-indigo-600 hover:bg-[#ffd60b] hover:text-gray-700 px-3 py-2 font-sans font-medium mt-2"
         >
           {loading ? "Submitting..." : "Submit Review"}
         </button>
