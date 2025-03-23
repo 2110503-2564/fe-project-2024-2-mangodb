@@ -9,7 +9,6 @@ export default async function Hotel() {
 
   return (
     <main className="text-center p-5">
-      <h1 className="text-xl font-medium">Hotel</h1>
       <Suspense
         fallback={
           <p>

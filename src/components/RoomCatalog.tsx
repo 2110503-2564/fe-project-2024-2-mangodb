@@ -6,7 +6,6 @@ export default async function RoomCatalog({
     RoomJson: Promise<RoomJson>;
 }) {
   const roomJsonReady = await RoomJson;
-  // export default function HotelCatalog(){
   return (
     <div style={{
       height: "90vh",

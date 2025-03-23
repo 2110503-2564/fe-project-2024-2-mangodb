@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import InteractiveCard from "./InteractiveCard";
 import getRoomsByHotel from "@/libs/getRoomsByHotel";
+import { FaUserAlt } from "react-icons/fa";
+import { FaRulerHorizontal } from "react-icons/fa6";
 
 export default function RoomCard({
   pricePerNight,
@@ -57,7 +59,7 @@ export default function RoomCard({
             className="object-cover rounded-t-lg"
           />
         </div>
-        <div className="px-2 pt-2">
+        <div className="px-6 pt-2">
           <div className="flex items-center text-[26px] font-bold text-black mx-2">
             ${pricePerNight}{" "}
             <span className="text-sm font-normal text-black mt-1">/night</span>
@@ -65,21 +67,13 @@ export default function RoomCard({
           <hr className="mt-1 border-gray-300 border-[1px]" />
         </div>
 
-        <div className="flex flex-col justify-between mt-2 px-4 text-[14px] text-gray-500 ">
+        <div className="flex flex-col justify-between mt-2 px-8 text-[14px] text-gray-500 ">
           <div className="flex items-center font-bold">
-            <img
-              src="/img/ruler.svg"
-              alt="Location Icon"
-              className="w-4 h-4 mr-1"
-            />{" "}
+          <FaRulerHorizontal className="w-4 h-4 mr-1"/>{" "}
             <span className="text-gray-700 mr-1 font-bold">{size}</span>sqft
           </div>
           <div className="flex items-center font-bold">
-            <img
-              src="/img/user.png"
-              alt="Location Icon"
-              className="w-4 h-4 mr-1"
-            />{" "}
+          <FaUserAlt className="w-4 h-4 mr-1"/>{" "}
             adult:{" "}
             <span className="text-gray-700 mr-1 ml-1 font-bold">{adult}</span>{" "}
             children:{" "}
@@ -90,7 +84,7 @@ export default function RoomCard({
         </div>
         <button
           onClick={handleBookClick}
-          className="self-start mt-3 bg-yellow-400 hover:bg-yellow-500 text-white text-sm py-1 px-4 rounded-md"
+          className="center px-[90px] self-start mt-3 bg-yellow-400 hover:bg-yellow-500 text-white text-sm py-1 rounded-md"
         >
           Book
         </button>
