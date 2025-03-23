@@ -7,10 +7,10 @@ import getHotel from "@/libs/getHotel";
 import getRoomsByHotel from "@/libs/getRoomsByHotel";
 import dayjs from "dayjs";
 import Image from "next/image";
-import updateBooking from "@/libs/updateBooking"; // Import your updateBooking function
-import deleteBooking from "@/libs/deleteBooking"; // Import your deleteBooking function
-import DatePicker from "react-datepicker"; // Import the date picker
-import "react-datepicker/dist/react-datepicker.css"; // Import date picker styles
+import updateBooking from "@/libs/updateBooking";
+import deleteBooking from "@/libs/deleteBooking";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation";
 
 export default function MyBooking() {
@@ -19,7 +19,7 @@ export default function MyBooking() {
   const [loading, setLoading] = useState(true);
   const [hotelData, setHotelData] = useState<Record<string, any>>({});
   const [roomData, setRoomData] = useState<Record<string, any>>({});
-  const [isEditing, setIsEditing] = useState<string | null>(null); // Track which booking is being edited
+  const [isEditing, setIsEditing] = useState<string | null>(null);
   const [editCheckInDate, setEditCheckInDate] = useState<Date | null>(null);
   const [editCheckOutDate, setEditCheckOutDate] = useState<Date | null>(null);
   const router = useRouter();
@@ -274,9 +274,12 @@ export default function MyBooking() {
                     {hotel?.averageRating?.toFixed(1)}
                   </span>
 
-                  {/* แยก review ออกมาและใช้ absolute เพื่อให้มันอยู่ข้างขวาและต่ำลงเล็กน้อย */}
-                  <span className="absolute right-0 mt-14 text-sm text-gray-600 cursor-pointer hover:underline"
-                  onClick={()=>{ router.push(`/hotel/${booking.hotel.id}/review`)}}>
+                  <span
+                    className="absolute right-0 mt-14 text-sm text-gray-600 cursor-pointer hover:underline"
+                    onClick={() => {
+                      router.push(`/hotel/${booking.hotel.id}/review`);
+                    }}
+                  >
                     view review →
                   </span>
                 </div>

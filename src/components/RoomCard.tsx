@@ -28,9 +28,13 @@ export default function RoomCard({
       const rooms = await getRoomsByHotel(hid);
 
       const matchedRoom = rooms.data.find(
-        (room: { size_description: { adults: number; children: number } }) =>
+        (room: {
+          size_description: { adults: number; children: number };
+          size: { size: number };
+        }) =>
           room.size_description.adults === adult &&
-          room.size_description.children === children
+          room.size_description.children === children &&
+          room.size.size === size
       );
 
       if (matchedRoom) {

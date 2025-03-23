@@ -2,7 +2,12 @@
 
 import Image from "next/image";
 import TopMenuItem from "./TopMenuItem";
-import { FaCircleUser, FaHotel, FaBookOpen, FaBookBookmark } from "react-icons/fa6";
+import {
+  FaCircleUser,
+  FaHotel,
+  FaBookOpen,
+  FaBookBookmark,
+} from "react-icons/fa6";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -53,16 +58,16 @@ export default function TopMenu() {
             className="text-lg font-bold text-indigo-500"
           />
           <Image
-          src="/img/mango-31-512.png"
-          width={48}
-          height={48}
-          alt="MangoHotel"
-          className="mr-3"
+            src="/img/mango-31-512.png"
+            width={48}
+            height={48}
+            alt="MangoHotel"
+            className="mr-3"
           />
 
           <div className="hidden sm:block border-l border-gray-300 h-10 mr-4"></div>
 
-          <FaHotel className="text-xl text-indigo-500 m-1"/>
+          <FaHotel className="text-xl text-indigo-500 m-1" />
           <TopMenuItem
             title="Select Hotel"
             pageRef="/hotel"
@@ -70,7 +75,7 @@ export default function TopMenu() {
           />
           {session ? (
             <div className="flex flex-row items-center">
-              <FaBookOpen className="text-2xl text-indigo-500 mr-2"/>
+              <FaBookOpen className="text-2xl text-indigo-500 mr-2" />
               <TopMenuItem
                 title="Booking"
                 pageRef="/booking"
@@ -94,7 +99,7 @@ export default function TopMenu() {
                 className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-7"
               />
             )}
-            <FaBookBookmark className="text-xl text-indigo-500 mr-2"/>
+            <FaBookBookmark className="text-xl text-indigo-500 mr-2" />
             <TopMenuItem
               title="My Booking"
               pageRef="/mybooking"
