@@ -91,7 +91,7 @@ export default function TopMenu() {
               <TopMenuItem
                 title="Manage Bookings"
                 pageRef="/manageBookings"
-                className="text-base font-semibold text-indigo-500 hover:text-indigo-700"
+                className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-7"
               />
             )}
             <FaBookBookmark className="text-xl text-indigo-500 mr-2"/>

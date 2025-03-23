@@ -127,7 +127,7 @@ export default function Booking() {
     >
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md h-[560px] mt-[100px]">
         <div
-          className="text-2xl mb-4 text-center"
+          className="text-2xl mb-4 text-center font-semibold"
           style={{ marginTop: "-2px", marginBottom: "28px" }}
         >
           Hotel Booking
