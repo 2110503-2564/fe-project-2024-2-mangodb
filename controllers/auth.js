@@ -130,3 +130,43 @@ exports.getUser = async (req, res, next) => {
     console.log(error);
   }
 };
+
+// @desc    Update Me
+// @route   PATCH /api/v1/auth/me
+// @access  Private
+exports.updateMe = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    const fieldsToUpdate = {};
+
+    if (req.body.name !== null && req.body.name !== undefined) {
+      fieldsToUpdate.name = req.body.name;
+    } else {
+      fieldsToUpdate.name = user.name;
+    }
+
+    if (req.body.tel !== null && req.body.tel !== undefined) {
+      fieldsToUpdate.tel = req.body.tel;
+    } else {
+      fieldsToUpdate.tel = user.tel;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      fieldsToUpdate,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      data: updatedUser,
+    });
+  } catch (error) {
+    res.status(400).json({ success: false, msg: "Unable to update profile" });
+    console.log(error);
+  }
+};
