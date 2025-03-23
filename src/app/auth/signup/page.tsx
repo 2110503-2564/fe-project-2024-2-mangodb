@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import userRegister from "@/libs/userRegister"; // Import your function
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function SignUp() {
   const [userName, setUserName] = useState("");
@@ -11,25 +13,43 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(""); // Store error message
 
+  const router = useRouter();
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
+  
     // ✅ **Validation Check**
     if (!userName || !userTel || !userEmail || !userPassword) {
       setError("All fields are required!");
       return;
     }
-
+  
     setLoading(true);
     try {
+      // ✅ **Register User**
       const response = await userRegister(userName, userTel, userEmail, userRole, userPassword);
-      alert("Registration successful! You can now log in.");
+      alert("Registration successful! Logging you in...");
+  
+      // ✅ **Auto Login after Sign Up**
+      const result = await signIn("credentials", {
+        email: userEmail, // Ensure correct key names
+        password: userPassword,
+        redirect: false, // Prevent auto redirect to handle manually
+      });
+  
+      if (result?.error) {
+        setError("Failed to log in. Please try manually.");
+      } else {
+        // ✅ **Navigate to Home Page after Successful Login**
+        window.location.href = "/"; // OR use `router.push("/")` if using Next.js router
+      }
     } catch (error) {
       setError("Failed to register. Try again.");
     }
     setLoading(false);
   };
+  
 
   return (
     <div className="bg-[url(/img/bg_signup.png)] bg-cover w-screen h-screen flex-row flex">
