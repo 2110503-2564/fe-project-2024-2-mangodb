@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import getBookings from "@/libs/getBookings";
 import getHotel from "@/libs/getHotel";
 import getRoomsByHotel from "@/libs/getRoomsByHotel";
+import getUserProfile from "@/libs/getUserProfile";
 import dayjs from "dayjs";
 import Image from "next/image";
 import updateBooking from "@/libs/updateBooking";
@@ -22,6 +23,7 @@ export default function MyBooking() {
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const [editCheckInDate, setEditCheckInDate] = useState<Date | null>(null);
   const [editCheckOutDate, setEditCheckOutDate] = useState<Date | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -29,25 +31,30 @@ export default function MyBooking() {
       if (!session?.user?.token) return;
 
       try {
+        const userProfile = await getUserProfile(session.user.token);
+        setUserId(userProfile.data._id);
+
         const bookingRes = await getBookings(session.user.token);
         const bookingsData = bookingRes.data;
-        setBookings(bookingsData);
 
-        // Fetch hotel & room info
+        const filteredBookings = bookingsData.filter(
+          (booking: any) => booking.user === userProfile.data._id
+        );
+
+        setBookings(filteredBookings);
+
         const hotelMap: Record<string, any> = {};
         const roomMap: Record<string, any> = {};
 
-        for (const booking of bookingsData) {
+        for (const booking of filteredBookings) {
           const hotelId = booking.hotel._id;
           const roomId = booking.room;
 
-          // Fetch hotel only if not already fetched
           if (!hotelMap[hotelId]) {
             const hotelRes = await getHotel(hotelId);
             hotelMap[hotelId] = hotelRes.data;
           }
 
-          // Fetch room only if not already fetched
           if (!roomMap[roomId]) {
             const roomsRes = await getRoomsByHotel(hotelId);
             const matchedRoom = roomsRes.data.find(
@@ -60,7 +67,7 @@ export default function MyBooking() {
         setHotelData(hotelMap);
         setRoomData(roomMap);
       } catch (error) {
-        console.error("Error fetching bookings or related data:", error);
+        console.error("Error fetching user profile or bookings:", error);
       } finally {
         setLoading(false);
       }

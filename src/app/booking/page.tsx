@@ -1,7 +1,6 @@
-"use client"
+"use client";
 
 import {
-  TextField,
   Select,
   MenuItem,
   FormControl,
@@ -163,8 +162,7 @@ export default function Booking() {
             >
               {rooms.map((room) => (
                 <MenuItem key={room._id} value={room._id}>
-                  {room.size} sqm,{" "}
-                  {room.size_description.adults} Adults{" "}
+                  {room.size} sqm, {room.size_description.adults} Adults{" "}
                   {room.size_description.children} Children
                 </MenuItem>
               ))}
@@ -200,7 +198,6 @@ export default function Booking() {
           >
             Book Now
           </Button>
-
         </form>
       </div>
     </main>

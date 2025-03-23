@@ -73,12 +73,11 @@ export default function RoomCard({
 
         <div className="flex flex-col justify-between mt-2 px-8 text-[14px] text-gray-500 ">
           <div className="flex items-center font-bold">
-          <FaRulerHorizontal className="w-4 h-4 mr-1"/>{" "}
+            <FaRulerHorizontal className="w-4 h-4 mr-1" />{" "}
             <span className="text-gray-700 mr-1 font-bold">{size}</span>sqft
           </div>
           <div className="flex items-center font-bold">
-          <FaUserAlt className="w-4 h-4 mr-1"/>{" "}
-            adult:{" "}
+            <FaUserAlt className="w-4 h-4 mr-1" /> adult:{" "}
             <span className="text-gray-700 mr-1 ml-1 font-bold">{adult}</span>{" "}
             children:{" "}
             <span className="text-gray-700 mr-1 ml-1 font-bold-800">
