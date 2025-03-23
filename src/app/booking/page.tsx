@@ -9,14 +9,10 @@ import {
   Button,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
-import { addBooking as reduxAddBooking } from "@/redux/features/bookSlice";
 import { Dayjs } from "dayjs";
 import DateReserve from "@/components/DateReserve";
-import addBooking from "@/libs/addBooking";
-import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import getHotels from "@/libs/getHotels";
 import getRoomsByHotel from "@/libs/getRoomsByHotel";
@@ -25,7 +21,6 @@ export default function Booking() {
   const searchParams = useSearchParams();
   const hotelId = searchParams.get("hotelId");
   const roomId = searchParams.get("roomId");
-
   const [hotel, setHotel] = useState<string>(hotelId || "");
   const [room, setRoom] = useState<string>(roomId || "");
   const [checkInDate, setCheckInDate] = useState<Dayjs | null>(null);
@@ -35,9 +30,9 @@ export default function Booking() {
   const [hotels, setHotels] = useState<any[]>([]);
   const [rooms, setRooms] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [selectedRoom, setSelectedRoom] = useState<any>(null); // เก็บข้อมูลห้องที่เลือก
 
-  const dispatch = useDispatch<AppDispatch>();
-  const { data: session } = useSession();
+  const router = useRouter();
 
   // Fetch hotels
   useEffect(() => {
@@ -53,6 +48,15 @@ export default function Booking() {
     };
     fetchHotels();
   }, []);
+
+  useEffect(() => {
+    if (room && rooms.length > 0) {
+      const foundRoom = rooms.find((r) => r._id === room);
+      if (foundRoom) {
+        setSelectedRoom(foundRoom);
+      }
+    }
+  }, [room, rooms]);
 
   // Fetch rooms when hotel is selected
   useEffect(() => {
@@ -88,30 +92,31 @@ export default function Booking() {
     }
   };
 
+  const handleRoomChange = (roomId: string) => {
+    const selectedRoom = rooms.find((room) => room._id === roomId);
+    setRoom(roomId);
+    setSelectedRoom(selectedRoom);
+  };
+
   const makeBooking = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (hotel && room && checkInDate && checkOutDate) {
-      const bookingData = {
-        hotelId: hotel, // hotelId
-        roomId: room, // roomId
-        checkInDate: checkInDate.toISOString(),
-        checkOutDate: checkOutDate.toISOString(),
-      };
+    if (hotel && room && checkInDate && checkOutDate && selectedRoom) {
+      const checkInStr = checkInDate.toISOString();
+      const checkOutStr = checkOutDate.toISOString();
+      const hotelObj = hotels.find((h) => h.id === hotel);
+      const hotelName = hotelObj?.name || "Hotel";
+      const hotelLocation = hotelObj?.address || "Bangkok, Thailand";
+      const adult = selectedRoom.size_description.adults;
+      const children = selectedRoom.size_description.children;
 
-      if (!session?.user?.token) {
-        console.error("Token not available");
-        return;
-      }
-
-      await addBooking(
-        session?.user.token,
-        hotel,
-        room,
-        checkInDate.toDate(),
-        checkOutDate.toDate()
+      router.push(
+        `/confirm?hotelId=${hotel}&roomId=${room}&hotelName=${encodeURIComponent(
+          hotelName
+        )}&hotelLocation=${encodeURIComponent(
+          hotelLocation
+        )}&adult=${adult}&children=${children}&checkIn=${checkInStr}&checkOut=${checkOutStr}&nights=${totalLength}&price=${price}`
       );
-      dispatch(reduxAddBooking(bookingData));
     }
   };
 
@@ -153,7 +158,7 @@ export default function Booking() {
             <InputLabel>Room</InputLabel>
             <Select
               value={room}
-              onChange={(e) => setRoom(e.target.value)}
+              onChange={(e) => handleRoomChange(e.target.value)} // Update room and selectedRoom when user changes room
               label="Room"
             >
               {rooms.map((room) => (
