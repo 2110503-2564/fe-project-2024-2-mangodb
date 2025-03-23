@@ -23,6 +23,7 @@ export default function RoomCard({
 }) {
   const router = useRouter();
 
+<<<<<<< HEAD
   const handleBookClick = async () => {
     try {
       const rooms = await getRoomsByHotel(hid);
@@ -55,6 +56,51 @@ export default function RoomCard({
             fill={true}
             className="object-cover rounded-t-lg"
           />
+||||||| 8751a22
+      {/* Size + People */}
+      <div className="flex flex-col justify-between px-4 pb-3 mt-10 text-sm text-gray-500">
+        <div className="flex items-center">
+          <img
+            src="/img/ruler.svg"
+            alt="Location Icon"
+            className="w-4 h-4 mr-1"
+          />{" "}
+          {size} sqft
+=======
+  const handleBookClick = async () => {
+    try {
+      const rooms = await getRoomsByHotel(hid);
+
+      const matchedRoom = rooms.data.find(
+        (room: { size_description: { adults: number; children: number } }) =>
+          room.size_description.adults === adult &&
+          room.size_description.children === children
+      );
+
+      if (matchedRoom) {
+        router.push(`/booking?hotelId=${hid}&roomId=${matchedRoom._id}`);
+      }
+    } catch (error) {
+      console.error("Error fetching rooms:", error);
+    }
+  };
+
+  return (
+    <InteractiveCard className="w-1/5 h-[375px]">
+      <div
+        className="w-full h-full bg-[#E6EBF9] rounded-lg"
+        style={{
+          fontFamily: "sans-serif",
+        }}
+      >
+        <div className="relative w-full h-3/5">
+          <Image
+            src={imgSrc}
+            alt="Product Picture"
+            fill={true}
+            className="object-cover rounded-t-lg"
+          />
+>>>>>>> 3d31e101d2c20337711c5a18f89e79136062596d
         </div>
         <div className="px-2 pt-2">
           <div className="flex items-center text-[26px] font-bold text-black mx-2">
