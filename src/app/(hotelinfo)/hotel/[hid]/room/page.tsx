@@ -8,7 +8,6 @@ export default function Room({params}: {params: {hid: string}}) {
   const rooms = getRoomsByHotel(params.hid);
   return (
     <main className="text-center p-5">
-      <h1 className="text-xl font-medium">Room</h1>
       <Suspense
         fallback={
           <p>
