@@ -3,8 +3,9 @@ import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
 import getHotels from "@/libs/getHotels";
 
-export default function Hotel() {
-  const hotels = getHotels();
+export default async function Hotel() {
+  // ดึงข้อมูลที่นี่ บน Server
+  const hotelResponse = await getHotels();
 
   return (
     <main className="text-center p-5">
@@ -17,7 +18,7 @@ export default function Hotel() {
           </p>
         }
       >
-        <HotelCatalog HotelJson={hotels} />
+        <HotelCatalog hotels={hotelResponse.data} />
       </Suspense>
     </main>
   );

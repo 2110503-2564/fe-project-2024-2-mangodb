@@ -1,18 +1,18 @@
+'use client';
+
+import { useSearchParams } from "next/navigation";
 import Card from "./HotelCard";
 
-export default async function HotelCatalog({
-  HotelJson,
-}: {
-  HotelJson: Promise<HotelJson>;
-}) {
-  const hotelJsonReady = await HotelJson;
-  // export default function HotelCatalog(){
+export default function HotelCatalog({ hotels }: { hotels: HotelItem[] }) {
+  const searchParams = useSearchParams();
+  const locationParam = searchParams.get("location");
+
+  const filteredHotels = locationParam
+    ? hotels.filter((hotel) => hotel.address === locationParam)
+    : hotels;
+
   return (
-    <div style={{
-      height: "90vh",
-      overflowY: "auto",
-      padding: "20px",
-    }}>
+    <div style={{ height: "90vh", overflowY: "auto", padding: "20px" }}>
       <div
         style={{
           display: "flex",
@@ -22,16 +22,15 @@ export default async function HotelCatalog({
           padding: "40px",
         }}
       >
-        {hotelJsonReady.data.map((Item: HotelItem) => (
-          // <Link href={`/room/`} className="w-1/5">
+        {filteredHotels.map((Item: HotelItem) => (
           <Card
+            key={Item._id}
             hotelName={Item.name}
             imgSrc={Item.imgSrc}
             location={Item.address}
             rating={Item.averageRating}
             hid={Item.id}
           />
-          /* </Link> */
         ))}
       </div>
     </div>
