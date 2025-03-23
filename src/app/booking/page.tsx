@@ -16,13 +16,18 @@ import { Dayjs } from "dayjs";
 import DateReserve from "@/components/DateReserve";
 import addBooking from "@/libs/addBooking";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
 import getHotels from "@/libs/getHotels";
 import getRoomsByHotel from "@/libs/getRoomsByHotel";
 
 export default function Booking() {
-  const [hotel, setHotel] = useState<string>("");
-  const [room, setRoom] = useState<string>("");
+  const searchParams = useSearchParams();
+  const hotelId = searchParams.get("hotelId");
+  const roomId = searchParams.get("roomId");
+
+  const [hotel, setHotel] = useState<string>(hotelId || "");
+  const [room, setRoom] = useState<string>(roomId || "");
   const [checkInDate, setCheckInDate] = useState<Dayjs | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Dayjs | null>(null);
   const [totalLength, setTotalLength] = useState<number>(0);
@@ -34,6 +39,7 @@ export default function Booking() {
   const dispatch = useDispatch<AppDispatch>();
   const { data: session } = useSession();
 
+  // Fetch hotels
   useEffect(() => {
     const fetchHotels = async () => {
       try {
@@ -45,25 +51,32 @@ export default function Booking() {
         setLoading(false);
       }
     };
-
     fetchHotels();
   }, []);
 
+  // Fetch rooms when hotel is selected
   useEffect(() => {
     if (hotel) {
       const fetchRooms = async () => {
         try {
           const data = await getRoomsByHotel(hotel);
           setRooms(data.data);
-          setRoom("");
         } catch (error) {
           console.error("Error fetching rooms:", error);
         }
       };
-
       fetchRooms();
     }
   }, [hotel]);
+
+  useEffect(() => {
+    if (hotelId) {
+      setHotel(hotelId);
+    }
+    if (roomId) {
+      setRoom(roomId);
+    }
+  }, [hotelId, roomId]);
 
   const handleDateChange = (checkIn: Dayjs | null, checkOut: Dayjs | null) => {
     if (checkIn && checkOut) {
@@ -142,7 +155,6 @@ export default function Booking() {
               value={room}
               onChange={(e) => setRoom(e.target.value)}
               label="Room"
-              disabled={!hotel}
             >
               {rooms.map((room) => (
                 <MenuItem key={room._id} value={room._id}>
