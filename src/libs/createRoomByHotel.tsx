@@ -7,10 +7,10 @@ export default async function createRoomByHotel(
   totalRooms: number,
   availableRooms: number,
   pricePerNight: number,
-  imageSrc: string,
+  imageSrc: string
 ) {
   const response = await fetch(
-    `http://localhost:5000/api/v1/hotels/${hotelId}/rooms`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/hotels/${hotelId}/rooms`,
     {
       method: "POST",
       headers: {

@@ -6,7 +6,7 @@ export default async function addBooking(
   userCheckOutDate: Date
 ) {
   const response = await fetch(
-    `http://localhost:5000/api/v1/hotels/${hotelId}/rooms/${roomId}/bookings`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/hotels/${hotelId}/rooms/${roomId}/bookings`,
     {
       method: "POST",
       headers: {

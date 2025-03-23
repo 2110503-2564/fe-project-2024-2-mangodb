@@ -5,19 +5,22 @@ export default async function createHotel(
   hoetelTel: string,
   imageSrc: string
 ) {
-  const response = await fetch(`http://localhost:5000/api/v1/hotels`, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: hotelName,
-      address: hotelAddress,
-      tel: hoetelTel,
-      imgSrc: imageSrc,
-    }),
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/hotels`,
+    {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: hotelName,
+        address: hotelAddress,
+        tel: hoetelTel,
+        imgSrc: imageSrc,
+      }),
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Failed to createHotel");
