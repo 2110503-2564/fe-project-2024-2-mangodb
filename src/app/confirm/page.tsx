@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addBooking as reduxAddBooking } from "@/redux/features/bookSlice";
 import addBooking from "@/libs/addBooking";
+import dayjs from "dayjs";
 
 export default function ConfirmPage() {
   const params = useSearchParams();
@@ -24,6 +25,9 @@ export default function ConfirmPage() {
   const nights = params.get("nights");
   const price = params.get("price");
   const roomId = params.get("roomId");
+
+  const formattedCheckIn = checkIn ? dayjs(checkIn).format("ddd DD MMM") : "";
+const formattedCheckOut = checkOut ? dayjs(checkOut).format("ddd DD MMM") : "";
 
   const handleConfirm = async () => {
     if (!session?.user?.token || !hotelId || !roomId || !checkIn || !checkOut) {
@@ -74,26 +78,28 @@ export default function ConfirmPage() {
         Total length of stay: <span className="font-extrabold text-2xl">{nights} nights</span>
       </p>
 
-      <div className="flex gap-10 mt-3">
-        <div>
-          <p className="text-sm text-[#456DF2] font-extrabold">check-in</p>
-          <p className="text-lg font-extrabold text-[#456DF2]">{checkIn}</p>
+      <div className="flex items-start gap-8 mt-3">
+        {/* check-in */}
+        <div className="border-r-2 border-gray-300 pr-8">
+            <p className="text-sm text-[#456DF2] font-extrabold">check-in</p>
+            <p className="text-lg font-extrabold text-[#456DF2]">{formattedCheckIn}</p>
         </div>
+        {/* check-out */}
         <div>
-          <p className="text-sm text-[#456DF2] font-extrabold">check-out</p>
-          <p className="text-lg font-extrabold text-[#456DF2]">{checkOut}</p>
+            <p className="text-sm text-[#456DF2] font-extrabold">check-out</p>
+            <p className="text-lg font-extrabold text-[#456DF2]">{formattedCheckOut}</p>
         </div>
-      </div>
+        </div>
 
-      <hr className="my-4 border-gray-300" />
+      <hr className="my-4 w-1/3 border-gray-300" />
 
-      <p className="text-md font-medium text-gray-700">
-        Price: <span className="text-[#456DF2] font-extrabold">THB {price}</span>
+      <p className="text-md text-[#456DF2] font-semibold font-medium mb-1">
+        Price: <span className="font-extrabold text-2xl">THB {price}</span>
       </p>
 
       <Button
         variant="contained"
-        className="mt-5 bg-blue-600 text-white px-6 py-2 rounded-lg"
+        className="mt-5 bg-[#456DF2] text-black px-6 py-2 rounded-xl"
         onClick={handleConfirm}
       >
         Confirm
