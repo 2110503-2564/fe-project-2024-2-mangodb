@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import TopMenuItem from "./TopMenuItem";
-import { FaCircleUser } from "react-icons/fa6";
+import { FaCircleUser, FaHotel, FaBookOpen, FaBookBookmark } from "react-icons/fa6";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -46,30 +46,37 @@ export default function TopMenu() {
     >
       {/* Left Section: Logo & Main Menu */}
       <div className="flex items-center space-x-10">
-        <Image
-          src="/img/mango-31-512.png"
-          width={48}
-          height={48}
-          alt="MangoHotel"
-        />
-
-        <div className="hidden md:flex space-x-6">
+        <div className="hidden md:flex items-center">
           <TopMenuItem
             title="MangoHotel"
             pageRef="/"
             className="text-lg font-bold text-indigo-500"
           />
+          <Image
+          src="/img/mango-31-512.png"
+          width={48}
+          height={48}
+          alt="MangoHotel"
+          className="mr-3"
+          />
+
+          <div className="hidden sm:block border-l border-gray-300 h-10 mr-4"></div>
+
+          <FaHotel className="text-xl text-indigo-500 m-1"/>
           <TopMenuItem
             title="Select Hotel"
             pageRef="/hotel"
-            className="text-base font-semibold text-indigo-500 hover:text-indigo-700 "
+            className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-8"
           />
           {session ? (
-            <TopMenuItem
-              title="Booking"
-              pageRef="/booking"
-              className="text-base font-semibold text-indigo-500 hover:text-indigo-700"
-            />
+            <div className="flex flex-row items-center">
+              <FaBookOpen className="text-2xl text-indigo-500 mr-2"/>
+              <TopMenuItem
+                title="Booking"
+                pageRef="/booking"
+                className="text-base font-semibold text-indigo-500 hover:text-indigo-700"
+              />
+            </div>
           ) : (
             ""
           )}
@@ -77,20 +84,21 @@ export default function TopMenu() {
       </div>
 
       {/* Right Section: User Authentication & Profile */}
-      <div className="flex items-center space-x-7">
+      <div className="flex items-center">
         {session ? (
           <>
             {role === "admin" && (
               <TopMenuItem
                 title="Manage Bookings"
                 pageRef="/manageBookings"
-                className="text-base font-semibold text-indigo-500 hover:text-indigo-700"
+                className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-7"
               />
             )}
+            <FaBookBookmark className="text-xl text-indigo-500 mr-2"/>
             <TopMenuItem
               title="My Booking"
               pageRef="/mybooking"
-              className="text-base font-semibold text-indigo-500 hover:text-indigo-700"
+              className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-7"
             />
             <div className="flex items-center space-x-5 border-2 p1-2 border-indigo-500 rounded-full">
               <TopMenuItem
@@ -99,7 +107,7 @@ export default function TopMenu() {
                 className="text-base font-semibold text-white bg-indigo-500 py-1 px-3 hover:bg-indigo-700 ml-2 rounded-full"
               />
               <Link href={"/profile"}>
-                <FaCircleUser className="text-4xl text-indigo-500 m-1" />
+                <FaCircleUser className="text-4xl text-indigo-500 m-1 hover:text-indigo-700" />
               </Link>
             </div>
           </>
