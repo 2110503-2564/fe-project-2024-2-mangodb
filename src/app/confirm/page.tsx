@@ -76,10 +76,17 @@ export default function ConfirmPage() {
   };
 
   return (
-    <main className="flex flex-col md:flex-row items-center justify-center gap-12 px-10 py-8 bg-white min-h-screen">
-      
-      {/* RIGHT: Booking Info */}
-      <div className="bg-[#EFEFEF] p-6 rounded-3xl shadow-md max-w-md w-full text-gray-800">
+    <main className="flex flex-col md:flex-row items-center justify-center gap-12 bg-white min-h-screen">
+      <div className="border border-gray-400 w-[450px] h-[300px]">
+        <Image
+          src={roomImg || "/img/fallback.jpg"}
+          alt="Room Image"
+          width={300}
+          height={300}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="bg-[#EFEFEF] p-6 rounded-3xl border border-gray-400 shadow-md max-w-md w-full text-gray-800">
         <h1 className="text-3xl font-extrabold mb-1">{hotelName}</h1>
         <p className="text-gray-500 text-md font-semibold flex items-center mb-2">
           <img src="/img/location-pin.svg" alt="Location Icon" className="w-4 h-4 mr-1" />

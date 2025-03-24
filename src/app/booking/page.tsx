@@ -108,7 +108,6 @@ export default function Booking() {
       const hotelLocation = hotelObj?.address || "Bangkok, Thailand";
       const adult = selectedRoom.size_description.adults;
       const children = selectedRoom.size_description.children;
-      const hotelImg = hotelObj?.imgSrc || "";
       const roomImg = selectedRoom?.imgSrc || "";
 
       router.push(
@@ -116,7 +115,7 @@ export default function Booking() {
           hotelName
         )}&hotelLocation=${encodeURIComponent(
           hotelLocation
-        )}&adult=${adult}&children=${children}&checkIn=${checkInStr}&checkOut=${checkOutStr}&nights=${totalLength}&price=${price}&hotelImg=${encodeURIComponent(hotelImg)}&roomImg=${encodeURIComponent(roomImg)}`
+        )}&adult=${adult}&children=${children}&checkIn=${checkInStr}&checkOut=${checkOutStr}&nights=${totalLength}&price=${price}&roomImg=${encodeURIComponent(roomImg)}`
       );
     }
   };
