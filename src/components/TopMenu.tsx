@@ -71,7 +71,7 @@ export default function TopMenu() {
           <TopMenuItem
             title="Select Hotel"
             pageRef="/hotel"
-            className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-8 transition-all duration-200"
+            className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-8 transition-all duration-200 hover:underline"
           />
           {session ? (
             <div className="flex flex-row items-center">
@@ -79,7 +79,7 @@ export default function TopMenu() {
               <TopMenuItem
                 title="Booking"
                 pageRef="/booking"
-                className="text-base font-semibold text-indigo-500 hover:text-indigo-700 transition-all duration-200"
+                className="text-base font-semibold text-indigo-500 hover:text-indigo-700 transition-all duration-200 hover:underline"
               />
             </div>
           ) : (
@@ -96,14 +96,14 @@ export default function TopMenu() {
               <TopMenuItem
                 title="Manage Bookings"
                 pageRef="/manageBookings"
-                className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-7 transition-all duration-200"
+                className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-10 transition-all duration-200 hover:underline"
               />
             )}
             <FaBookBookmark className="text-xl text-indigo-500 mr-2" />
             <TopMenuItem
               title="My Booking"
               pageRef="/mybooking"
-              className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-7 transition-all duration-200"
+              className="text-base font-semibold text-indigo-500 hover:text-indigo-700 mr-7 transition-all duration-200 hover:underline"
             />
             <div className="flex items-center space-x-5 border-2 p1-2 border-indigo-500 rounded-full">
               <TopMenuItem
@@ -112,7 +112,7 @@ export default function TopMenu() {
                 className="text-base font-semibold text-white bg-indigo-500 py-1 px-3 hover:bg-indigo-700 ml-2 rounded-full transition-all duration-200"
               />
               <Link href={"/profile"}>
-                <FaCircleUser className="text-4xl text-indigo-500 m-1 hover:text-indigo-700 transition-all duration-200" />
+                <FaCircleUser className="text-4xl text-indigo-500 m-1 hover:text-indigo-700 transition-all duration-200 mr-2" />
               </Link>
             </div>
           </>

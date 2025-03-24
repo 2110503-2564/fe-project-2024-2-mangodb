@@ -16,7 +16,7 @@ export default function DateReserve({
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div>
+      <div className="space-y-4">
         <DatePicker
           label="Check-in Date"
           value={checkInDate}

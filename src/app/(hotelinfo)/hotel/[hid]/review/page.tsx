@@ -17,7 +17,7 @@ export default function ReviewPage() {
   const { data: session } = useSession();
   const { hid } = useParams(); // Get hid from URL
   const [reviews, setReviews] = useState<RatingJson>();
-  const [hotel, setHotel] = useState<HotelJson>();
+  const [hotel, setHotel] = useState<oneHotelJson>();
   const [userRating, setUserRating] = useState(5);
   const [userReview, setUserReview] = useState("");
   const [loading, setLoading] = useState(false);
@@ -91,7 +91,7 @@ export default function ReviewPage() {
             <h2 className="text-xl font-bold mt-2">{hotel.data.name}</h2>
             <p className="text-gray-600">{hotel.data.address}</p>
             <p className="text-gray-600">Tel: {hotel.data.tel}</p>
-            <p className="font-semibold mt-1">Average Rating: {hotel.data.averageRating} ⭐</p>
+            <p className="font-semibold mt-1">Average Rating: {hotel.data.averageRating} ❤️</p>
           </>
         ) : (
           <p>Loading hotel info...</p>
@@ -107,7 +107,7 @@ export default function ReviewPage() {
           <div className="mt-4 max-h-[50vh] overflow-y-auto">
             <ul>
               {reviews.data.map((review) => (
-                <li key={review._id} className="p-4 border rounded-md mb-2 w-[20vw] bg-white">
+                <li key={review._id} className="p-4 border rounded-md mb-2 w-full bg-white">
                   <p className="inline-block font-semibold text-lg">{review.user.name}</p> 
                   <StyledRating
                     name="customized-color"
