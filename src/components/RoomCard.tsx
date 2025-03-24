@@ -32,11 +32,11 @@ export default function RoomCard({
       const matchedRoom = rooms.data.find(
         (room: {
           size_description: { adults: number; children: number };
-          size: { size: number };
+          size: number;
         }) =>
           room.size_description.adults === adult &&
           room.size_description.children === children &&
-          room.size.size === size
+          room.size === size
       );
 
       if (matchedRoom) {

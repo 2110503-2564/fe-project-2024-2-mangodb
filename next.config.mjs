@@ -1,7 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["drive.google.com", "cdn.pixabay.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "drive.google.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.pixabay.com",
+      },
+    ],
   },
   async headers() {
     return [
