@@ -90,7 +90,7 @@ export default function UserProfile() {
                 type="text"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                className="text-[30px] text-[#456DF2] font-bold"
+                className="text-[30px] text-[#456DF2] font-bold bg-gray-200 focus:border-none focus:outline-none"
               />
             ) : (
               <p className="text-[30px] text-[#456DF2] font-bold">
@@ -98,7 +98,7 @@ export default function UserProfile() {
               </p>
             )}
             <button
-              className="text-[18px] text-[#456DF2] font-semibold hover:underline"
+              className="text-[18px] text-[#456DF2] font-semibold hover:underline "
               onClick={() => setIsEditingName(true)}
             >
               Edit
@@ -136,7 +136,7 @@ export default function UserProfile() {
                 type="tel"
                 value={editTel}
                 onChange={(e) => setEditTel(e.target.value)}
-                className="text-[30px] text-[#456DF2] font-bold"
+                className="text-[30px] text-[#456DF2] font-bold bg-gray-200 focus:border-none focus:outline-none"
               />
             ) : (
               <p className="text-[30px] text-[#456DF2] font-bold">
