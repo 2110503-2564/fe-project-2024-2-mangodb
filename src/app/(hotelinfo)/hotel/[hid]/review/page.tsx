@@ -82,8 +82,8 @@ export default function ReviewPage() {
   };
 
   return (
-    <div className="flex flex-row justify-center">
-      <div className="p-6 border rounded-md shadow-md w-[30vw]">
+    <div className="flex flex-row justify-center pt-[2%] bg-gray-100">
+      <div className="p-6 border rounded-md shadow-md w-[30vw] bg-white">
         {hotel ? (
           <>
             <img src={hotel.data.imgSrc} alt={hotel.data.name} className="w-full h-[80%] object-cover rounded-md" />
@@ -103,31 +103,34 @@ export default function ReviewPage() {
         {/* Display reviews */}
         {error && <p className="text-red-500">{error}</p>}
         {reviews && reviews.count > 0 ? (
-          <ul className="mt-4">
-            {reviews.data.map((review) => (
-              <li key={review._id} className="p-4 border rounded-md mb-2 w-[20vw] justify-center">
-                <p className="inline-block font-semibold text-lg">{review.user.name}</p> 
-                <StyledRating
-                  name="customized-color"
-                  defaultValue={review.rating}
-                  getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
-                  icon={<FavoriteIcon fontSize="inherit" />}
-                  emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                  readOnly
-                />
-                <p className="text-gray-700">{review.review}</p>
-                <small className="text-gray-500">
-                  {new Date(review.createdAt).toLocaleDateString()}
-                </small>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-4 max-h-[50vh] overflow-y-auto">
+            <ul>
+              {reviews.data.map((review) => (
+                <li key={review._id} className="p-4 border rounded-md mb-2 w-[20vw] bg-white">
+                  <p className="inline-block font-semibold text-lg">{review.user.name}</p> 
+                  <StyledRating
+                    name="customized-color"
+                    defaultValue={review.rating}
+                    getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
+                    icon={<FavoriteIcon fontSize="inherit" />}
+                    emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                    readOnly
+                  />
+                  <p className="text-gray-700">{review.review}</p>
+                  <small className="text-gray-500">
+                    {new Date(review.createdAt).toLocaleDateString()}
+                  </small>
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : (
           <p>No reviews yet.</p>
         )}
 
+
         {/* Add Review Form */}
-        <form onSubmit={handleSubmit} className="mt-6 p-4 border rounded-md">
+        <form onSubmit={handleSubmit} className="mt-6 p-4 border rounded-md bg-white">
           <label className="block mb-2 font-semibold">Rating:</label>
           <StyledRating
           name="customized-color"
