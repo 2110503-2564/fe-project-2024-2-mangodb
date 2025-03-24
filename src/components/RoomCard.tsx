@@ -32,9 +32,11 @@ export default function RoomCard({
       const matchedRoom = rooms.data.find(
         (room: {
           size_description: { adults: number; children: number };
+          size: number;
         }) =>
           room.size_description.adults === adult &&
-          room.size_description.children === children
+          room.size_description.children === children &&
+          room.size === size
       );
 
       if (matchedRoom) {
@@ -76,7 +78,9 @@ export default function RoomCard({
           </div>
           <div className="flex items-center font-semibold">
             <FaUserAlt className="w-4 h-4 mr-1" /> adult:{" "}
-            <span className="text-gray-700 mr-1 ml-1 font-semibold">{adult}</span>{" "}
+            <span className="text-gray-700 mr-1 ml-1 font-semibold">
+              {adult}
+            </span>{" "}
             children:{" "}
             <span className="text-gray-700 mr-1 ml-1 font-semibold">
               {children}

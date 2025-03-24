@@ -3,15 +3,17 @@ import RoomCard from "./RoomCard";
 export default async function RoomCatalog({
   RoomJson,
 }: {
-    RoomJson: Promise<RoomJson>;
+  RoomJson: Promise<RoomJson>;
 }) {
   const roomJsonReady = await RoomJson;
   return (
-    <div style={{
-      height: "90vh",
-      overflowY: "auto",
-      padding: "20px",
-    }}>
+    <div
+      style={{
+        height: "90vh",
+        overflowY: "auto",
+        padding: "20px",
+      }}
+    >
       <div
         style={{
           display: "flex",
@@ -30,6 +32,7 @@ export default async function RoomCatalog({
             size={Item.size}
             adult={Item.size_description.adults}
             children={Item.size_description.children}
+            key={Item._id}
           />
           /* </Link> */
         ))}
