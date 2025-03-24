@@ -1,13 +1,15 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { Button } from "@mui/material";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addBooking as reduxAddBooking } from "@/redux/features/bookSlice";
 import addBooking from "@/libs/addBooking";
 import dayjs from "dayjs";
+import Image from "next/image";
+import { Button } from "@mui/material";
 
 export default function ConfirmPage() {
   const params = useSearchParams();
@@ -25,9 +27,22 @@ export default function ConfirmPage() {
   const nights = params.get("nights");
   const price = params.get("price");
   const roomId = params.get("roomId");
+  const hotelImg = params.get("hotelImg");
+  const roomImg = params.get("roomImg");
+
+  const images = [hotelImg, roomImg].filter(Boolean);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const formattedCheckIn = checkIn ? dayjs(checkIn).format("ddd DD MMM") : "";
-const formattedCheckOut = checkOut ? dayjs(checkOut).format("ddd DD MMM") : "";
+  const formattedCheckOut = checkOut ? dayjs(checkOut).format("ddd DD MMM") : "";
+
+  const handlePrev = () => {
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
 
   const handleConfirm = async () => {
     if (!session?.user?.token || !hotelId || !roomId || !checkIn || !checkOut) {
@@ -61,48 +76,60 @@ const formattedCheckOut = checkOut ? dayjs(checkOut).format("ddd DD MMM") : "";
   };
 
   return (
-    <main className="px-10 pt-16 text-gray-800 bg-gray-50">
-      <h1 className="text-4xl font-extrabold mb-2">{hotelName}</h1>
-      <p className="text-gray-500 text-lg mb-1 font-extrabold flex items-center">
-        <img
-        src="/img/location-pin.svg"
-        alt="Location Icon"
-        className="w-4 h-4 mr-1"
-        />{" "} {hotelLocation}</p>
+    <main className="flex flex-col md:flex-row items-center justify-center gap-12 px-10 py-8 bg-white min-h-screen">
+      
+      {/* RIGHT: Booking Info */}
+      <div className="bg-[#EFEFEF] p-6 rounded-3xl shadow-md max-w-md w-full text-gray-800">
+        <h1 className="text-3xl font-extrabold mb-1">{hotelName}</h1>
+        <p className="text-gray-500 text-md font-semibold flex items-center mb-2">
+          <img src="/img/location-pin.svg" alt="Location Icon" className="w-4 h-4 mr-1" />
+          {hotelLocation}
+        </p>
 
-      <p className="text-md text-[#456DF2] font-semibold font-medium mb-1">
-        adult: <span className="font-extrabold text-2xl">{adult}</span>, children: <span className="font-bold text-2xl">{children}</span>
-      </p>
+        <p className="text-sm text-[#456DF2] font-semibold">
+          adult: <span className="font-extrabold text-lg">{adult}</span>, children:{" "}
+          <span className="font-extrabold text-lg">{children}</span>
+        </p>
 
-      <p className="text-md font-semibold text-[#456DF2]">
-        Total length of stay: <span className="font-extrabold text-2xl">{nights} nights</span>
-      </p>
+        <p className="text-sm font-semibold text-[#456DF2] mb-2">
+          Total length of stay: <span className="font-extrabold text-lg">{nights} nights</span>
+        </p>
 
-      <div className="flex items-start gap-8 mt-3">
-        {/* check-in */}
-        <div className="border-r-2 border-gray-300 pr-8">
+        <div className="flex gap-8 mt-3">
+          <div className="border-r-2 border-gray-300 pr-8">
             <p className="text-sm text-[#456DF2] font-extrabold">check-in</p>
             <p className="text-lg font-extrabold text-[#456DF2]">{formattedCheckIn}</p>
-        </div>
-        {/* check-out */}
-        <div>
+          </div>
+          <div>
             <p className="text-sm text-[#456DF2] font-extrabold">check-out</p>
             <p className="text-lg font-extrabold text-[#456DF2]">{formattedCheckOut}</p>
+          </div>
         </div>
-        </div>
 
-      <hr className="my-4 w-1/3 border-gray-300" />
+        <hr className="my-4 border-gray-300" />
 
-      <p className="text-md text-[#456DF2] font-semibold font-medium mb-1">
-        Price: <span className="font-extrabold text-2xl">THB {price}</span>
-      </p>
+        <p className="text-md text-[#456DF2] font-semibold mb-2">
+          Price: <span className="font-extrabold text-2xl">THB {price}</span>
+        </p>
 
-      <button
-        onClick={handleConfirm}
-        className="mt-3 bg-[#456DF2] text-white font-bold px-4 py-2 rounded-xl hover:bg-[#3552C0] transition-all"
+        <Button
+          onClick={handleConfirm}
+          variant="contained"
+          fullWidth
+          sx={{
+            backgroundColor: "#456DF2",
+            color: "white",
+            fontWeight: "bold",
+            borderRadius: "12px",
+            padding: "10px 0",
+            "&:hover": {
+              backgroundColor: "#FFEE00",
+            },
+          }}
         >
-        Confirm
-        </button>
+          Confirm
+        </Button>
+      </div>
     </main>
   );
 }

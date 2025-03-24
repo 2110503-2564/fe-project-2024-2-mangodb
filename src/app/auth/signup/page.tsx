@@ -70,7 +70,7 @@ export default function SignUp() {
           />
 
           <div className="font-semibold text-white">Tel</div>
-          <input type="text" placeholder="Tel" value={userTel}
+          <input type="text" placeholder="xxx-xxx-xxxx" value={userTel}
             onChange={(e) => setUserTel(e.target.value)}
             className="p-2 border rounded-xl mb-3"
           />

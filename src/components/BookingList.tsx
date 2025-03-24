@@ -13,6 +13,10 @@ import deleteBooking from "@/libs/deleteBooking";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation";
+import { FaLocationDot } from "react-icons/fa6";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import { FaBed, FaCheck, FaUserAlt } from "react-icons/fa";
+import { SlCalender } from "react-icons/sl";
 
 export default function MyBooking() {
   const { data: session } = useSession();
@@ -208,20 +212,20 @@ export default function MyBooking() {
               {/* Booking Details */}
               <div className="flex-1 p-6">
                 <div className="text-xl font-bold mb-2">{hotel?.name}</div>
-                <div className="text-sm text-gray-600 mb-1">
-                  📍 {hotel?.address}
+                <div className="text-sm text-gray-600 mb-1 flex items-center gap-2">
+                <FaLocationDot /> {hotel?.address}
                 </div>
-                <div className="text-sm text-gray-600 mb-1">
-                  📞 {hotel?.tel}
+                <div className="text-sm text-gray-600 mb-1 flex items-center gap-2">
+                <BsFillTelephoneFill /> {hotel?.tel}
                 </div>
 
                 {room && (
                   <>
-                    <div className="text-sm text-gray-700 mt-2">
-                      🛏️ {room.size} sqft
+                    <div className="text-sm text-gray-700 mt-2 flex items-center gap-2">
+                    <FaBed />{room.size} sqft
                     </div>
-                    <div className="text-sm text-gray-700">
-                      👥 {room.size_description.adults} adults,{" "}
+                    <div className="text-sm text-gray-700 flex items-center gap-2">
+                    <FaUserAlt /> {room.size_description.adults} adults,{" "}
                       {room.size_description.children} children
                     </div>
                   </>
@@ -255,20 +259,20 @@ export default function MyBooking() {
                       onClick={() => handleConfirmEdit(booking._id)}
                       className="px-3 py-1 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600 transition shadow-sm hover:shadow-md"
                     >
-                      <span className="mr-1">✅</span>
-                      Confirm Edit
+                      <div className="text-sm text-white flex items-center gap-2">
+                      <FaCheck />Confirm Edit</div>
                     </button>
                   </div>
                 ) : (
                   <>
                     <div className="mt-3 text-sm">
-                      🗓️ Check-In Date:{" "}
+                    <SlCalender /> Check-In Date:{" "}
                       <span className="font-medium">
                         {dayjs(booking.checkInDate).format("DD/MM/YYYY")}
                       </span>
                     </div>
                     <div className="text-sm">
-                      🗓️ Check-Out Date:{" "}
+                      Check-Out Date:{" "}
                       <span className="font-medium">
                         {dayjs(booking.checkOutDate).format("DD/MM/YYYY")}
                       </span>
@@ -282,7 +286,7 @@ export default function MyBooking() {
                   </span>
 
                   <span
-                    className="absolute right-0 mt-14 text-sm text-gray-600 cursor-pointer hover:underline"
+                    className="absolute right-0 text-sm text-gray-600 cursor-pointer hover:underline"
                     onClick={() => {
                       router.push(`/hotel/${booking.hotel.id}/review`);
                     }}
