@@ -32,11 +32,9 @@ export default function RoomCard({
       const matchedRoom = rooms.data.find(
         (room: {
           size_description: { adults: number; children: number };
-          size: { size: number };
         }) =>
           room.size_description.adults === adult &&
-          room.size_description.children === children &&
-          room.size.size === size
+          room.size_description.children === children
       );
 
       if (matchedRoom) {
@@ -48,7 +46,7 @@ export default function RoomCard({
   };
 
   return (
-    <InteractiveCard className="w-1/5 h-[375px]">
+    <InteractiveCard className="w-1/5 h-[375px] border border-gray-300">
       <div
         className="w-full h-full bg-[#E6EBF9] rounded-lg"
         style={{
@@ -65,29 +63,29 @@ export default function RoomCard({
         </div>
         <div className="px-6 pt-2">
           <div className="flex items-center text-[26px] font-bold text-black mx-2">
-            ${pricePerNight}{" "}
+            ฿{pricePerNight}{" "}
             <span className="text-sm font-normal text-black mt-1">/night</span>
           </div>
           <hr className="mt-1 border-gray-300 border-[1px]" />
         </div>
 
         <div className="flex flex-col justify-between mt-2 px-8 text-[14px] text-gray-500 ">
-          <div className="flex items-center font-bold">
+          <div className="flex items-center font-semibold">
             <FaRulerHorizontal className="w-4 h-4 mr-1" />{" "}
-            <span className="text-gray-700 mr-1 font-bold">{size}</span>sqft
+            <span className="text-gray-700 mr-1 font-semibold">{size}</span>sqft
           </div>
-          <div className="flex items-center font-bold">
+          <div className="flex items-center font-semibold">
             <FaUserAlt className="w-4 h-4 mr-1" /> adult:{" "}
-            <span className="text-gray-700 mr-1 ml-1 font-bold">{adult}</span>{" "}
+            <span className="text-gray-700 mr-1 ml-1 font-semibold">{adult}</span>{" "}
             children:{" "}
-            <span className="text-gray-700 mr-1 ml-1 font-bold-800">
+            <span className="text-gray-700 mr-1 ml-1 font-semibold">
               {children}
             </span>
           </div>
         </div>
         <button
           onClick={handleBookClick}
-          className="center px-[90px] self-start mt-3 bg-[#FBED2C] hover:bg-indigo-500 text-white text-sm py-1 rounded-md transition-all duration-200"
+          className="center px-[90px] self-start mt-3 bg-indigo-500 hover:bg-[#FBED2C] text-white text-sm py-1 rounded-md transition-all duration-200"
         >
           Book
         </button>

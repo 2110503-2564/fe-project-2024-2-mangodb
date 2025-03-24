@@ -106,10 +106,10 @@ export default function UserProfile() {
         {isEditingName && (
           <button
             onClick={handleSaveName}
-            className="mb-8 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 transition-colors duration-300"
+            className="mb-8 px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 active:bg-blue-700 transition-colors duration-300"
             style={{ transform: "translateY(-16px)" }}
           >
-            Save Name
+            Save
           </button>
         )}
 
@@ -152,9 +152,9 @@ export default function UserProfile() {
         {isEditingTel && (
           <button
             onClick={handleSaveTel}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 transition-colors duration-300"
+            className="mt-4 px-4 py-2 bg-blue-500 rounded-xl text-white rounded hover:bg-blue-600 active:bg-blue-700 transition-colors duration-300"
           >
-            Save Tel
+            Save
           </button>
         )}
       </div>
