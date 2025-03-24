@@ -121,10 +121,10 @@ export default function Booking() {
 
   return (
     <main
-      className="flex justify-center bg bg-[url(/img/bg_booking.png)]"
+      className="flex justify-center bg-[url(/img/bg_booking.png)]"
       style={{ height: "calc(100vh - 50px)" }}
     >
-      <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-md h-[53vh] mt-[13vh]">
+      <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-md h-[65vh] mt-[13vh]">
         <div
           className="text-2xl mb-4 text-center font-semibold text-gray-700"
           style={{ marginTop: "-2px", marginBottom: "28px" }}
