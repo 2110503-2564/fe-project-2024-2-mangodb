@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import InteractiveCard from "./InteractiveCard";
+import { FaLocationDot } from "react-icons/fa6";
 
 export default function Card({
   hotelName,
@@ -40,11 +41,7 @@ export default function Card({
         <div className="p-4">
           <h3 className="text-lg font-semibold text-left">{hotelName}</h3>
           <p className="text-sm text-gray-500 flex items-center">
-            <img
-              src="/img/location-pin.svg"
-              alt="Location Icon"
-              className="w-4 h-4 mr-1"
-            />{" "}
+          <FaLocationDot className="mr-1"/>{" "}
             {location}
           </p>
           <div className="flex items-center justify-between mt-9">
@@ -53,7 +50,7 @@ export default function Card({
             </span>
             <Link
               href={`/${hid}/review`}
-              className="text-sm text-gray-500 flex items-center hover:text-gray-700"
+              className="text-sm text-gray-500 flex items-center hover:text-indigo-500 transition-all duration-200"
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
