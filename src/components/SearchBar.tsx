@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { FaLocationDot, FaUser, FaArrowRight } from "react-icons/fa6";
 import { useState, useEffect } from "react";
@@ -10,8 +10,8 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import getHotels from "@/libs/getHotels"; 
-import { useRouter } from 'next/navigation';
+import getHotels from "@/libs/getHotels";
+import { useRouter } from "next/navigation";
 
 export default function SearchBar() {
   const [hotels, setHotels] = useState<HotelItem[]>([]);
@@ -19,7 +19,7 @@ export default function SearchBar() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guestDropdownOpen, setGuestDropdownOpen] = useState(false);
-  const [adult, setAdult] = useState(0);
+  const [adult, setAdult] = useState(1);
   const [children, setChildren] = useState(0);
   const router = useRouter();
 
@@ -28,15 +28,15 @@ export default function SearchBar() {
       alert("Please complete all fields");
       return;
     }
-  
+
     const queryParams = new URLSearchParams({
       location,
       checkIn,
       checkOut,
       adult: adult.toString(),
-      children: children.toString()
+      children: children.toString(),
     });
-  
+
     router.push(`/hotel?${queryParams.toString()}`);
   };
 
@@ -49,7 +49,7 @@ export default function SearchBar() {
     fetchHotels();
   }, []);
   const uniqueHotels = hotels.reduce((acc: HotelItem[], curr) => {
-  if (!acc.find(h => h.address === curr.address)) {
+    if (!acc.find((h) => h.address === curr.address)) {
       acc.push(curr);
     }
     return acc;
@@ -71,8 +71,10 @@ export default function SearchBar() {
             onChange={(e) => setLocation(e.target.value)}
             label="Location"
             renderValue={(selected) => {
-              const selectedHotel = uniqueHotels.find((h) => h.address === selected);
-              return selectedHotel ? selectedHotel.address : 'Select a hotel';
+              const selectedHotel = uniqueHotels.find(
+                (h) => h.address === selected
+              );
+              return selectedHotel ? selectedHotel.address : "Select a hotel";
             }}
             sx={{
               backgroundColor: "transparent",
@@ -149,10 +151,12 @@ export default function SearchBar() {
                   label="Adults"
                   type="number"
                   value={adult}
-                  onChange={(e) => setAdult(Math.max(0, Number(e.target.value)))}
+                  onChange={(e) =>
+                    setAdult(Math.max(0, Number(e.target.value)))
+                  }
                   fullWidth
                   size="small"
-                  inputProps={{ min: 0 }}
+                  inputProps={{ min: 1 }}
                   InputLabelProps={{ shrink: true }}
                 />
               </div>
@@ -162,7 +166,9 @@ export default function SearchBar() {
                   label="Children"
                   type="number"
                   value={children}
-                  onChange={(e) => setChildren(Math.max(0, Number(e.target.value)))}
+                  onChange={(e) =>
+                    setChildren(Math.max(0, Number(e.target.value)))
+                  }
                   fullWidth
                   size="small"
                   inputProps={{ min: 0 }}

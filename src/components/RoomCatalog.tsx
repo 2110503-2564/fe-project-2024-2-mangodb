@@ -1,11 +1,50 @@
-import RoomCard from "./RoomCard";
+"use client";
 
-export default async function RoomCatalog({
+import RoomCard from "./RoomCard";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+
+export default function RoomCatalog({
   RoomJson,
 }: {
   RoomJson: Promise<RoomJson>;
 }) {
-  const roomJsonReady = await RoomJson;
+  const [Rooms, setRooms] = useState<RoomItem[]>([]);
+
+  const searchParams = useSearchParams();
+
+  const [checkInDate, setCheckInDate] = useState<string | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<string | null>(null);
+  const [adult, setAdult] = useState<any>(null);
+  const [children, setChildren] = useState<any>(null);
+
+  useEffect(() => {
+    // Check if parameters exist in the URL
+    const checkIn = searchParams.get("checkIn");
+    const checkOut = searchParams.get("checkOut");
+    const adultParam = searchParams.get("adult");
+    const childrenParam = searchParams.get("children");
+
+    // Only set state if parameters are found in the URL
+    if (checkIn) setCheckInDate(checkIn);
+    if (checkOut) setCheckOutDate(checkOut);
+    if (adultParam) setAdult(adultParam);
+    if (childrenParam) setChildren(childrenParam);
+  }, [searchParams]);
+
+  useEffect(() => {
+    const setAvailableRooms = async () => {
+      const roomJsonReady = await RoomJson;
+
+      const availableRooms = roomJsonReady.data.filter((room: RoomItem) => {
+        return room.availableRooms > 0;
+      });
+      setRooms(availableRooms);
+    };
+
+    setAvailableRooms();
+  }, []);
+
   return (
     <div
       style={{
@@ -23,8 +62,15 @@ export default async function RoomCatalog({
           padding: "40px",
         }}
       >
-        {roomJsonReady.data.map((Item: RoomItem) => (
-          // <Link href={`/room/`} className="w-1/5">
+        {Rooms.filter((Item: RoomItem) => {
+          if (adult && children) {
+            return (
+              Item.size_description.adults >= adult &&
+              Item.size_description.children >= children
+            );
+          }
+          return true;
+        }).map((Item: RoomItem) => (
           <RoomCard
             pricePerNight={Item.pricePerNight}
             imgSrc={Item.imgSrc}
@@ -33,8 +79,9 @@ export default async function RoomCatalog({
             adult={Item.size_description.adults}
             children={Item.size_description.children}
             key={Item._id}
+            checkInDate={checkInDate || ""}
+            checkOutDate={checkOutDate || ""}
           />
-          /* </Link> */
         ))}
       </div>
     </div>

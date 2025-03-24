@@ -29,7 +29,7 @@ export default function Booking() {
   const [hotels, setHotels] = useState<any[]>([]);
   const [rooms, setRooms] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [selectedRoom, setSelectedRoom] = useState<any>(null); // เก็บข้อมูลห้องที่เลือก
+  const [selectedRoom, setSelectedRoom] = useState<any>(null);
 
   const router = useRouter();
 
@@ -49,13 +49,14 @@ export default function Booking() {
   }, []);
 
   useEffect(() => {
-    if (room && rooms.length > 0) {
-      const foundRoom = rooms.find((r) => r._id === room);
+    if (roomId) {
+      setRoom(roomId);
+      const foundRoom = rooms.find((r) => r._id === roomId);
       if (foundRoom) {
         setSelectedRoom(foundRoom);
       }
     }
-  }, [room, rooms]);
+  }, [roomId, rooms]);
 
   // Fetch rooms when hotel is selected
   useEffect(() => {
@@ -75,7 +76,7 @@ export default function Booking() {
       };
       fetchRooms();
     }
-  }, [hotel]);
+  }, [hotel, searchParams]);
 
   useEffect(() => {
     if (hotelId) {
@@ -93,7 +94,6 @@ export default function Booking() {
       const daysDifference = checkOut.diff(checkIn, "day");
       setTotalLength(daysDifference);
       setPrice(daysDifference * (selectedRoom?.pricePerNight || 0));
-
     }
   };
 

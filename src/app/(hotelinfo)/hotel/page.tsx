@@ -4,7 +4,6 @@ import { LinearProgress } from "@mui/material";
 import getHotels from "@/libs/getHotels";
 
 export default async function Hotel() {
-  // ดึงข้อมูลที่นี่ บน Server
   const hotelResponse = await getHotels();
 
   return (

@@ -15,6 +15,8 @@ export default function RoomCard({
   adult,
   children,
   hid,
+  checkInDate,
+  checkOutDate,
 }: {
   pricePerNight: number;
   imgSrc: string;
@@ -22,6 +24,8 @@ export default function RoomCard({
   hid: string;
   adult: number;
   children: number;
+  checkInDate: string;
+  checkOutDate: string;
 }) {
   const router = useRouter();
 
@@ -40,7 +44,11 @@ export default function RoomCard({
       );
 
       if (matchedRoom) {
-        router.push(`/booking?hotelId=${hid}&roomId=${matchedRoom._id}`);
+        checkInDate != "" && checkOutDate != ""
+          ? router.push(
+              `/booking?hotelId=${hid}&roomId=${matchedRoom._id}&checkIn=${checkInDate}&checkOut=${checkOutDate}`
+            )
+          : router.push(`/booking?hotelId=${hid}&roomId=${matchedRoom._id}`);
       }
     } catch (error) {
       console.error("Error fetching rooms:", error);

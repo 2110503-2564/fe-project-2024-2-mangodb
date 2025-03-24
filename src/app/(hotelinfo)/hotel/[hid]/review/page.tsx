@@ -12,6 +12,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 export default function ReviewPage() {
   const { data: session } = useSession();
@@ -76,7 +77,7 @@ export default function ReviewPage() {
       setUserRating(5); // Reset rating
 
       // Refresh reviews after submission
-      alert("Review Success!!");
+      toast.success("Review Success!!");
       const updatedReviews = await getRatingsByHotel(hid as string);
       setReviews(updatedReviews);
     } catch (err) {

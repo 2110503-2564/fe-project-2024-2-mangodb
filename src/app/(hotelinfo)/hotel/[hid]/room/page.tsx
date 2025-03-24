@@ -1,11 +1,13 @@
+"use client";
+
 import RoomCatalog from "@/components/RoomCatalog";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
-import getHotels from "@/libs/getHotels";
 import getRoomsByHotel from "@/libs/getRoomsByHotel";
 
-export default function Room({params}: {params: {hid: string}}) {
+export default function Room({ params }: { params: { hid: string } }) {
   const rooms = getRoomsByHotel(params.hid);
+
   return (
     <main className="text-center p-5">
       <Suspense
@@ -16,7 +18,7 @@ export default function Room({params}: {params: {hid: string}}) {
           </p>
         }
       >
-        <RoomCatalog RoomJson={rooms}/>
+        <RoomCatalog RoomJson={rooms} />
       </Suspense>
     </main>
   );

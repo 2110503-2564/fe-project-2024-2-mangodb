@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
 import { useSearchParams } from "next/navigation";
 import Card from "./HotelCard";
 
 export default function HotelCatalog({ hotels }: { hotels: HotelItem[] }) {
   const searchParams = useSearchParams();
+
   const locationParam = searchParams.get("location");
 
   const filteredHotels = locationParam

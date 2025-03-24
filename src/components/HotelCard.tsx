@@ -1,12 +1,13 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import InteractiveCard from "./InteractiveCard";
 import { FaLocationDot } from "react-icons/fa6";
+import { useSearchParams } from "next/navigation";
 
 export default function Card({
   hotelName,
@@ -21,14 +22,41 @@ export default function Card({
   rating: number;
   hid: string;
 }) {
-  const [value, setValue] = useState<number | null>(0);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [checkInDate, setCheckInDate] = useState<string | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<string | null>(null);
+  const [adult, setAdult] = useState<string | null>(null);
+  const [children, setChildren] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check if parameters exist in the URL
+    const checkIn = searchParams.get("checkIn");
+    const checkOut = searchParams.get("checkOut");
+    const adultParam = searchParams.get("adult");
+    const childrenParam = searchParams.get("children");
+
+    // Only set state if parameters are found in the URL
+    if (checkIn) setCheckInDate(checkIn);
+    if (checkOut) setCheckOutDate(checkOut);
+    if (adultParam) setAdult(adultParam);
+    if (childrenParam) setChildren(childrenParam);
+  }, [searchParams]);
+
+  const checkParams = checkInDate && checkOutDate && adult && children;
 
   return (
     <InteractiveCard className="w-1/5 h-[300px] border border-gray-300 cursor-pointer">
       <div
         className="w-full h-full bg-[#E6EBF9] rounded-xl"
-        onClick={() => router.push(`/hotel/${hid}/room`)}
+        onClick={() =>
+          router.push(
+            checkParams
+              ? `/hotel/${hid}/room?checkIn=${checkInDate}&checkOut=${checkOutDate}&adult=${adult}&children=${children}`
+              : `/hotel/${hid}/room`
+          )
+        }
       >
         <div className="relative w-full h-40">
           <Image
@@ -41,8 +69,7 @@ export default function Card({
         <div className="p-4">
           <h3 className="text-lg font-semibold text-left">{hotelName}</h3>
           <p className="text-sm text-gray-500 flex items-center">
-          <FaLocationDot className="mr-1"/>{" "}
-            {location}
+            <FaLocationDot className="mr-1" /> {location}
           </p>
           <div className="flex items-center justify-between mt-9">
             <span className="text-sm font-bold bg-yellow-300 px-2 py-1 rounded-md text-black">

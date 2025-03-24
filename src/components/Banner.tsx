@@ -15,9 +15,6 @@ export default function Banner() {
     "/img/Banner-2.png",
   ];
   const [index, setIndex] = useState(0);
-  const router = useRouter();
-
-  const { data: session } = useSession();
 
   return (
     <div className={styles.banner} onClick={() => setIndex(index + 1)}>
@@ -30,15 +27,18 @@ export default function Banner() {
       />
       <div className={styles.bannerText}>
         <h1 className="text-4xl font-medium text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,1)] font-tiltWarp text-2xl">
-          Find your dream stay-<br />easy
+          Find your dream stay-
+          <br />
+          easy
         </h1>
-        <h3 className="text-xl font-medium text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,1)] font-tiltWarp text-base 
-         mb-10">
+        <h3
+          className="text-xl font-medium text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,1)] font-tiltWarp text-base 
+         mb-10"
+        >
           bookingbest rates, exceptional service.
         </h3>
 
-        <SearchBar/>
-
+        <SearchBar />
       </div>
     </div>
   );
