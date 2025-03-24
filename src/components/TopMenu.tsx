@@ -121,12 +121,12 @@ export default function TopMenu() {
             <TopMenuItem
               title="Sign Up"
               pageRef="/auth/signup"
-              className="text-base font-semibold text-indigo-500 border border-indigo-500 rounded-full px-4 py-1 hover:bg-gray-200 transition-all duration-200"
+              className="text-base font-semibold text-indigo-500 border border-indigo-500 rounded-full px-4 py-1 hover:bg-indigo-500 hover:text-white transition-all duration-200"
             />
             <TopMenuItem
               title="Login"
               pageRef="/api/auth/signin"
-              className="text-base font-semibold text-white bg-indigo-500 rounded-full px-6 py-1 hover:bg-indigo-700 transition-all duration-200"
+              className="text-base font-semibold text-white bg-indigo-500 rounded-full px-6 py-1 hover:bg-white hover:text-indigo-500 hover:border hover:border-indigo-500 transition-all duration-200"
             />
           </div>
         )}

@@ -70,7 +70,7 @@ export default function SignIn() {
 
           <button 
             onClick={handleSubmit} 
-            className="text-white rounded-xl bg-[#6A8BFA] hover:bg-[#ffd60b] hover:text-gray-700 px-3 py-2 font-sans font-medium"
+            className="text-white rounded-xl bg-[#6A8BFA] hover:bg-[#ffd60b] hover:text-gray-700 px-3 py-2 font-sans font-medium transition-all duration-200"
             disabled={loading}>
             {loading ? "Signing In..." : "Sign In"}
           </button>

@@ -104,7 +104,7 @@ export default function SearchBar() {
           type="date"
           value={checkIn}
           onChange={(e) => setCheckIn(e.target.value)}
-          className="outline-none text-gray-500 text-sm bg-transparent w-full"
+          className="outline-none text-gray-500 text-sm bg-transparent w-full hover:cursor-pointer hover:bg-gray-100 transition-colors duration-200 rounded"
         />
       </div>
 
@@ -177,7 +177,7 @@ export default function SearchBar() {
       {/* Search Button */}
       <button
         onClick={handleSearch}
-        className="bg-blue-500 text-white p-3 rounded-full mt-2 sm:mt-0 sm:ml-2 w-full sm:w-auto"
+        className="bg-blue-500 text-white p-3 rounded-full mt-2 sm:mt-0 sm:ml-2 w-full sm:w-auto hover:bg-indigo-500 trasition-all duration-200"
       >
         <FaArrowRight />
       </button>
