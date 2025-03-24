@@ -89,7 +89,7 @@ export default function RoomCard({
         </div>
         <button
           onClick={handleBookClick}
-          className="center px-[90px] self-start mt-3 bg-indigo-500 hover:bg-[#FBED2C] text-white text-sm py-1 rounded-md transition-all duration-200"
+          className="center px-[90px] self-start mt-3 bg-indigo-500  hover:bg-[#FBED2C] text-white text-sm py-1 rounded-md transition-all hover:text-indigo-500 duration-200"
         >
           Book
         </button>
