@@ -11,6 +11,7 @@ import * as React from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { styled } from '@mui/material/styles';
+import Image from "next/image";
 
 export default function ReviewPage() {
   const { data: session } = useSession();
@@ -86,7 +87,7 @@ export default function ReviewPage() {
       <div className="p-6 border rounded-md shadow-md w-[30vw] bg-white">
         {hotel ? (
           <>
-            <img src={hotel.data.imgSrc} alt={hotel.data.name} className="w-full h-[80%] object-cover rounded-md" />
+            <Image src={hotel.data.imgSrc} alt={hotel.data.name} className="w-full h-[80%] object-cover rounded-md" width={1000} height={1000}/>
             <h2 className="text-xl font-bold mt-2">{hotel.data.name}</h2>
             <p className="text-gray-600">{hotel.data.address}</p>
             <p className="text-gray-600">Tel: {hotel.data.tel}</p>
