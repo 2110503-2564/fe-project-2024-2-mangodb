@@ -13,9 +13,9 @@ import deleteBooking from "@/libs/deleteBooking";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRouter } from "next/navigation";
-import { FaLocationDot } from "react-icons/fa6";
+import { FaLocationDot, FaCalendarDays } from "react-icons/fa6";
 import { BsFillTelephoneFill } from "react-icons/bs";
-import { FaBed, FaCheck, FaUserAlt } from "react-icons/fa";
+import { FaBed, FaCheck, FaUserAlt, FaArrowRight  } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
 
 export default function MyBooking() {
@@ -173,7 +173,7 @@ export default function MyBooking() {
           return (
             <div
               key={booking._id}
-              className="bg-blue-100 p-6 rounded-2xl max-w-4xl w-full flex shadow-lg mt-5 relative"
+              className="bg-blue-100 px-6 py-2 rounded-2xl max-w-4xl w-full flex shadow-lg mt-5 relative"
             >
               {/* Edit and Delete Buttons */}
               <div className="absolute top-11 right-6 flex space-x-2">
@@ -232,7 +232,7 @@ export default function MyBooking() {
                 )}
 
                 {isEditing === booking._id ? (
-                  <div className="mt-3 flex items-end space-x-4">
+                  <div className="mt-3 flex items-end space-x-4 text-gray-700">
                     {/* Date Pickers */}
                     <div className="flex flex-col space-y-2">
                       <DatePicker
@@ -265,13 +265,13 @@ export default function MyBooking() {
                   </div>
                 ) : (
                   <>
-                    <div className="mt-3 text-sm">
-                    <SlCalender /> Check-In Date:{" "}
+                    <div className="mt-3 text-sm text-gray-700">
+                    <FaCalendarDays className="text-base mb-1"/> Check-In Date:{" "}
                       <span className="font-medium">
                         {dayjs(booking.checkInDate).format("DD/MM/YYYY")}
                       </span>
                     </div>
-                    <div className="text-sm">
+                    <div className="text-sm text-gray-700">
                       Check-Out Date:{" "}
                       <span className="font-medium">
                         {dayjs(booking.checkOutDate).format("DD/MM/YYYY")}
@@ -286,12 +286,12 @@ export default function MyBooking() {
                   </span>
 
                   <span
-                    className="absolute right-0 text-sm text-gray-600 cursor-pointer hover:text-indigo-500 transition-all duration-200"
+                    className="absolute right-0 text-sm font-semibold text-gray-600 cursor-pointer hover:text-indigo-500 hover:underline transition-all duration-200 flex flex-row"
                     onClick={() => {
                       router.push(`/hotel/${booking.hotel.id}/review`);
                     }}
                   >
-                    view review →
+                    view review <FaArrowRight className="ml-2 pt-1 text-lg"/>
                   </span>
                 </div>
               </div>
