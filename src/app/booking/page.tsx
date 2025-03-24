@@ -33,6 +33,15 @@ export default function Booking() {
 
   const router = useRouter();
 
+  // Add it for show Price from first render (URL)
+  useEffect(() => {
+    if (hotel && room && checkInDate && checkOutDate && selectedRoom) {
+      const daysDifference = checkOutDate.diff(checkInDate, "day");
+      setTotalLength(daysDifference);
+      setPrice(daysDifference * (selectedRoom?.pricePerNight || 0));
+    }
+  }, [hotel, room, checkInDate, checkOutDate, selectedRoom]);
+
   // Fetch hotels
   useEffect(() => {
     const fetchHotels = async () => {
