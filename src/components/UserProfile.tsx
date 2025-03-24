@@ -2,24 +2,25 @@
 import { useSession } from "next-auth/react";
 import getUserProfile from "@/libs/getUserProfile";
 import { useState, useEffect } from "react";
-import updateMe from "@/libs/updateMe"; // นำเข้า updateMe สำหรับการอัปเดตข้อมูล
+import updateMe from "@/libs/updateMe";
+import { toast } from "react-toastify";
 
 export default function UserProfile() {
   const { data: session, status } = useSession();
   const [user, setUser] = useState<any>(null);
-  const [isEditingName, setIsEditingName] = useState(false); // สำหรับเช็คว่าอยู่ในโหมดแก้ไขชื่อ
-  const [isEditingTel, setIsEditingTel] = useState(false); // สำหรับเช็คว่าอยู่ในโหมดแก้ไขเบอร์โทร
-  const [editName, setEditName] = useState(""); // เก็บชื่อที่แก้ไข
-  const [editTel, setEditTel] = useState(""); // เก็บเบอร์โทรที่แก้ไข
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [isEditingTel, setIsEditingTel] = useState(false);
+  const [editName, setEditName] = useState("");
+  const [editTel, setEditTel] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         if (session?.user.token) {
           const userData = await getUserProfile(session.user.token);
-          setUser(userData.data); // โหลดข้อมูลผู้ใช้
-          setEditName(userData.data.name); // กำหนดค่าเริ่มต้นของชื่อ
-          setEditTel(userData.data.tel); // กำหนดค่าเริ่มต้นของเบอร์โทร
+          setUser(userData.data);
+          setEditName(userData.data.name);
+          setEditTel(userData.data.tel);
         }
       } catch (err) {
         console.error("Failed to load user:", err);
@@ -31,42 +32,46 @@ export default function UserProfile() {
     }
   }, [session]);
 
-  // ฟังก์ชันจัดการเมื่อกด Save สำหรับ Name
   const handleSaveName = async () => {
     try {
       if (session?.user.token == null) return;
       const updatedUser = await updateMe(session.user.token, editName, null);
-      setUser((prevUser: any) => ({
-        ...prevUser,
-        name: updatedUser.data.name, // อัปเดตแค่ชื่อใน user
-      }));
-      setIsEditingName(false); // ออกจากโหมดแก้ไข
-    } catch (error) {
+
+      if (updatedUser.data?.name) {
+        setUser((prevUser: any) => ({
+          ...prevUser,
+          name: updatedUser.data.name,
+        }));
+      }
+
+      toast.success("Name updated successfully!");
+      setIsEditingName(false);
+    } catch (error: any) {
+      toast.error(error.message);
       console.error("Error updating name:", error);
     }
   };
 
-  // ฟังก์ชันจัดการเมื่อกด Save สำหรับ Tel
   const handleSaveTel = async () => {
     try {
       if (session?.user.token == null) return;
       const updatedUser = await updateMe(session.user.token, null, editTel);
-      console.log(updatedUser);
 
-      // เช็คว่า updatedUser.data.tel ถูกอัปเดตจาก backend
       if (updatedUser.data?.tel) {
         setUser((prevUser: any) => ({
           ...prevUser,
-          tel: updatedUser.data.tel, // อัปเดตแค่เบอร์โทรใน user
+          tel: updatedUser.data.tel,
         }));
       }
-      setIsEditingTel(false); // ออกจากโหมดแก้ไข
-    } catch (error) {
+
+      toast.success("Phone number updated successfully!");
+      setIsEditingTel(false);
+    } catch (error: any) {
+      toast.error(error.message);
       console.error("Error updating tel:", error);
     }
   };
 
-  // กรณีที่ยังไม่ได้โหลดข้อมูลผู้ใช้
   if (status === "loading" || !user) {
     return <div className="mt-20 ml-20 text-lg">Loading...</div>;
   }
@@ -89,12 +94,12 @@ export default function UserProfile() {
               />
             ) : (
               <p className="text-[30px] text-[#456DF2] font-bold">
-                {user?.name || "N/A"} {/* ใช้ค่า default ถ้าไม่มีชื่อ */}
+                {user?.name || "N/A"}
               </p>
             )}
             <button
               className="text-[18px] text-[#456DF2] font-semibold hover:underline"
-              onClick={() => setIsEditingName(true)} // เปลี่ยนเป็นโหมดแก้ไข
+              onClick={() => setIsEditingName(true)}
             >
               Edit
             </button>
@@ -117,7 +122,7 @@ export default function UserProfile() {
         <div className="mb-6">
           <p className="text-[18px] font-bold text-[#456DF2]">Email</p>
           <p className="text-[30px] text-[#456DF2] font-bold">
-            {user?.email || "N/A"} {/* ใช้ค่า default ถ้าไม่มีอีเมล */}
+            {user?.email || "N/A"}
           </p>
           <hr className="mt-2 bordser-gray-300" />
         </div>
@@ -135,12 +140,12 @@ export default function UserProfile() {
               />
             ) : (
               <p className="text-[30px] text-[#456DF2] font-bold">
-                {user?.tel || "N/A"} {/* ใช้ค่า default ถ้าไม่มีเบอร์โทร */}
+                {user?.tel || "N/A"}
               </p>
             )}
             <button
               className="text-[18px] text-[#456DF2] font-semibold hover:underline"
-              onClick={() => setIsEditingTel(true)} // เปลี่ยนเป็นโหมดแก้ไข
+              onClick={() => setIsEditingTel(true)}
             >
               Edit
             </button>
