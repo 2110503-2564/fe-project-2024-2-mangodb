@@ -141,12 +141,26 @@ exports.updateMe = async (req, res, next) => {
     const fieldsToUpdate = {};
 
     if (req.body.name !== null && req.body.name !== undefined) {
+      const nameExists = await User.findOne({ name: req.body.name });
+      if (nameExists && nameExists._id.toString() !== req.user.id) {
+        return res.status(400).json({
+          success: false,
+          msg: "The name you entered is already taken. Please choose a different name.",
+        });
+      }
       fieldsToUpdate.name = req.body.name;
     } else {
       fieldsToUpdate.name = user.name;
     }
 
     if (req.body.tel !== null && req.body.tel !== undefined) {
+      const telExists = await User.findOne({ tel: req.body.tel });
+      if (telExists && telExists._id.toString() !== req.user.id) {
+        return res.status(400).json({
+          success: false,
+          msg: "The phone number you entered is already taken. Please choose a different phone number.",
+        });
+      }
       fieldsToUpdate.tel = req.body.tel;
     } else {
       fieldsToUpdate.tel = user.tel;
