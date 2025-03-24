@@ -126,7 +126,7 @@ export default function Booking() {
       className="flex justify-center bg-[url(/img/bg_booking.png)]"
       style={{ height: "calc(100vh - 50px)" }}
     >
-      <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-md h-[65vh] mt-[13vh]">
+      <div className="bg-white p-8 rounded-3xl shadow-lg w-full max-w-md h-auto mt-[13vh] absolute">
         <div
           className="text-2xl mb-4 text-center font-semibold text-gray-700"
           style={{ marginTop: "-2px", marginBottom: "28px" }}
@@ -175,7 +175,7 @@ export default function Booking() {
           <DateReserve onDateChange={handleDateChange} />
 
           {/* Total Length of Stay and Price */}
-          <div className="font-base text-gray-500">
+          <div className="font-base text-gray-600 p-2 bg-indigo-200 inline-block rounded-xl">
             Total {totalLength} Days, {price} $
           </div>
 

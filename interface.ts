@@ -17,6 +17,13 @@ interface HotelJson {
   data: HotelItem[];
 }
 
+interface oneHotelJson {
+  success: boolean;
+  count: number;
+  pagination: Object;
+  data: HotelItem;
+}
+
 // GET {{URL}}/api/v1/auth/me
 interface UserItem {
   success: boolean;
