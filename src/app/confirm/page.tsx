@@ -1,7 +1,6 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
@@ -10,6 +9,7 @@ import addBooking from "@/libs/addBooking";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { Button } from "@mui/material";
+import { toast } from "react-toastify";
 
 export default function ConfirmPage() {
   const params = useSearchParams();
@@ -30,19 +30,10 @@ export default function ConfirmPage() {
   const hotelImg = params.get("hotelImg");
   const roomImg = params.get("roomImg");
 
-  const images = [hotelImg, roomImg].filter(Boolean);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
   const formattedCheckIn = checkIn ? dayjs(checkIn).format("ddd DD MMM") : "";
-  const formattedCheckOut = checkOut ? dayjs(checkOut).format("ddd DD MMM") : "";
-
-  const handlePrev = () => {
-    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
+  const formattedCheckOut = checkOut
+    ? dayjs(checkOut).format("ddd DD MMM")
+    : "";
 
   const handleConfirm = async () => {
     if (!session?.user?.token || !hotelId || !roomId || !checkIn || !checkOut) {
@@ -68,7 +59,7 @@ export default function ConfirmPage() {
         })
       );
 
-      alert("Booking confirmed!");
+      toast.success("Booking confirmed!");
       router.push("/mybooking");
     } catch (error) {
       console.error("Booking failed:", error);
@@ -89,27 +80,36 @@ export default function ConfirmPage() {
       <div className="bg-[#EFEFEF] p-6 rounded-3xl border border-gray-400 shadow-md max-w-md w-full text-gray-800">
         <h1 className="text-3xl font-extrabold mb-1">{hotelName}</h1>
         <p className="text-gray-500 text-md font-semibold flex items-center mb-2">
-          <img src="/img/location-pin.svg" alt="Location Icon" className="w-4 h-4 mr-1" />
+          <img
+            src="/img/location-pin.svg"
+            alt="Location Icon"
+            className="w-4 h-4 mr-1"
+          />
           {hotelLocation}
         </p>
 
         <p className="text-sm text-[#456DF2] font-semibold">
-          adult: <span className="font-extrabold text-lg">{adult}</span>, children:{" "}
-          <span className="font-extrabold text-lg">{children}</span>
+          adult: <span className="font-extrabold text-lg">{adult}</span>,
+          children: <span className="font-extrabold text-lg">{children}</span>
         </p>
 
         <p className="text-sm font-semibold text-[#456DF2] mb-2">
-          Total length of stay: <span className="font-extrabold text-lg">{nights} nights</span>
+          Total length of stay:{" "}
+          <span className="font-extrabold text-lg">{nights} nights</span>
         </p>
 
         <div className="flex gap-8 mt-3">
           <div className="border-r-2 border-gray-300 pr-8">
             <p className="text-sm text-[#456DF2] font-extrabold">check-in</p>
-            <p className="text-lg font-extrabold text-[#456DF2]">{formattedCheckIn}</p>
+            <p className="text-lg font-extrabold text-[#456DF2]">
+              {formattedCheckIn}
+            </p>
           </div>
           <div>
             <p className="text-sm text-[#456DF2] font-extrabold">check-out</p>
-            <p className="text-lg font-extrabold text-[#456DF2]">{formattedCheckOut}</p>
+            <p className="text-lg font-extrabold text-[#456DF2]">
+              {formattedCheckOut}
+            </p>
           </div>
         </div>
 

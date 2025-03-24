@@ -63,7 +63,12 @@ export default function Booking() {
       const fetchRooms = async () => {
         try {
           const data = await getRoomsByHotel(hotel);
-          setRooms(data.data);
+
+          const availableRooms = data.data.filter((room: any) => {
+            return room.availableRooms > 0;
+          });
+
+          setRooms(availableRooms);
         } catch (error) {
           console.error("Error fetching rooms:", error);
         }
@@ -115,7 +120,9 @@ export default function Booking() {
           hotelName
         )}&hotelLocation=${encodeURIComponent(
           hotelLocation
-        )}&adult=${adult}&children=${children}&checkIn=${checkInStr}&checkOut=${checkOutStr}&nights=${totalLength}&price=${price}&roomImg=${encodeURIComponent(roomImg)}`
+        )}&adult=${adult}&children=${children}&checkIn=${checkInStr}&checkOut=${checkOutStr}&nights=${totalLength}&price=${price}&roomImg=${encodeURIComponent(
+          roomImg
+        )}`
       );
     }
   };
