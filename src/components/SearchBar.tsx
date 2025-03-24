@@ -19,7 +19,7 @@ export default function SearchBar() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guestDropdownOpen, setGuestDropdownOpen] = useState(false);
-  const [adult, setAdult] = useState(2);
+  const [adult, setAdult] = useState(0);
   const [children, setChildren] = useState(0);
   const router = useRouter();
 
