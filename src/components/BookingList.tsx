@@ -176,7 +176,7 @@ export default function MyBooking() {
               className="bg-blue-100 p-6 rounded-2xl max-w-4xl w-full flex shadow-lg mt-5 relative"
             >
               {/* Edit and Delete Buttons */}
-              <div className="absolute top-4 right-6 flex space-x-2">
+              <div className="absolute top-11 right-6 flex space-x-2">
                 <button
                   onClick={() =>
                     handleEdit(
@@ -198,7 +198,7 @@ export default function MyBooking() {
               </div>
 
               {/* Room Picture Placeholder */}
-              <div className="flex-1 flex items-center justify-center border-r border-gray-300 pr-8 mr-2">
+              <div className="flex-1 flex items-center justify-center border-r border-black my-3 pr-8 mr-2">
                 <Image
                   src={room.imgSrc}
                   alt="Room Picture"
@@ -286,7 +286,7 @@ export default function MyBooking() {
                   </span>
 
                   <span
-                    className="absolute right-0 text-sm text-gray-600 cursor-pointer hover:underline"
+                    className="absolute right-0 text-sm text-gray-600 cursor-pointer hover:text-indigo-500 transition-all duration-200"
                     onClick={() => {
                       router.push(`/hotel/${booking.hotel.id}/review`);
                     }}
