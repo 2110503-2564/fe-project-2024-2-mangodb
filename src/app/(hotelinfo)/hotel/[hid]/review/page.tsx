@@ -4,24 +4,25 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import getRatingsByHotel from "@/libs/getRatingsByHotel";
 import addRatingToHotel from "@/libs/addRatingToHotel";
+import getHotel from "@/libs/getHotel";
 import { useSession } from "next-auth/react";
 import Rating from '@mui/material/Rating';
 import * as React from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { styled } from '@mui/material/styles';
+import Image from "next/image";
 
 export default function ReviewPage() {
   const { data: session } = useSession();
   const { hid } = useParams(); // Get hid from URL
   const [reviews, setReviews] = useState<RatingJson>();
+  const [hotel, setHotel] = useState<HotelJson>();
   const [userRating, setUserRating] = useState(5);
   const [userReview, setUserReview] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const params = useParams();
-  const [value, setValue] = React.useState<number | null>(3);
-  const [hover, setHover] = React.useState(-1);
   
   const StyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
@@ -39,8 +40,11 @@ export default function ReviewPage() {
     
     const fetchReviews = async () => {
       try {
-        const data = await getRatingsByHotel(hid as string);
-        setReviews(data);
+        const rating = await getRatingsByHotel(hid as string);
+        const hotel = await getHotel(hid as string);
+        console.log(JSON.stringify(hotel, null, 2))
+        setReviews(rating);
+        setHotel(hotel);
       } catch (err) {
         setError("Failed to load reviews.");
       }
@@ -79,63 +83,82 @@ export default function ReviewPage() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold">Hotel Reviews</h1>
+    <div className="flex flex-row justify-center pt-[2%] bg-gray-100">
+      <div className="p-6 border rounded-md shadow-md w-[30vw] bg-white">
+        {hotel ? (
+          <>
+            <Image src={hotel.data.imgSrc} alt={hotel.data.name} className="w-full h-[80%] object-cover rounded-md" width={1000} height={1000}/>
+            <h2 className="text-xl font-bold mt-2">{hotel.data.name}</h2>
+            <p className="text-gray-600">{hotel.data.address}</p>
+            <p className="text-gray-600">Tel: {hotel.data.tel}</p>
+            <p className="font-semibold mt-1">Average Rating: {hotel.data.averageRating} ⭐</p>
+          </>
+        ) : (
+          <p>Loading hotel info...</p>
+        )}
+      </div>
+      
+      <div className="p-6">
+        <h1 className="text-2xl font-bold">Hotel Reviews</h1>
 
-      {/* Display reviews */}
-      {error && <p className="text-red-500">{error}</p>}
-      {reviews && reviews.count > 0 ? (
-        <ul className="mt-4">
-          {reviews.data.map((review) => (
-            <li key={review.hotel} className="p-4 border rounded-md mb-2 w-[20vw] justify">
-              <p className="inline-block font-semibold text-lg">{review.user.name}</p> 
-              <StyledRating
-                name="customized-color"
-                defaultValue={review.rating}
-                getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
-                icon={<FavoriteIcon fontSize="inherit" />}
-                emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                readOnly
-              />
-              <p className="text-gray-700">{review.review}</p>
-              <small className="text-gray-500">
-                {new Date(review.createdAt).toLocaleDateString()}
-              </small>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No reviews yet.</p>
-      )}
+        {/* Display reviews */}
+        {error && <p className="text-red-500">{error}</p>}
+        {reviews && reviews.count > 0 ? (
+          <div className="mt-4 max-h-[50vh] overflow-y-auto">
+            <ul>
+              {reviews.data.map((review) => (
+                <li key={review._id} className="p-4 border rounded-md mb-2 w-[20vw] bg-white">
+                  <p className="inline-block font-semibold text-lg">{review.user.name}</p> 
+                  <StyledRating
+                    name="customized-color"
+                    defaultValue={review.rating}
+                    getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
+                    icon={<FavoriteIcon fontSize="inherit" />}
+                    emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                    readOnly
+                  />
+                  <p className="text-gray-700">{review.review}</p>
+                  <small className="text-gray-500">
+                    {new Date(review.createdAt).toLocaleDateString()}
+                  </small>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p>No reviews yet.</p>
+        )}
 
-      {/* Add Review Form */}
-      <form onSubmit={handleSubmit} className="mt-6 p-4 border rounded-md">
-        <label className="block mb-2 font-semibold">Rating:</label>
-        <StyledRating
-        name="customized-color"
-        defaultValue={userRating}
-        getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
-        icon={<FavoriteIcon fontSize="inherit" />}
-        emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-        onChange={(e, newValue)=>{setUserRating(newValue as number)}}
-      />
 
-        <label className="block mb-2 font-semibold">Review:</label>
-        <textarea
-          value={userReview}
-          onChange={(e) => setUserReview(e.target.value)}
-          className="w-full border p-2 rounded"
-          placeholder="Write your review..."
+        {/* Add Review Form */}
+        <form onSubmit={handleSubmit} className="mt-6 p-4 border rounded-md bg-white">
+          <label className="block mb-2 font-semibold">Rating:</label>
+          <StyledRating
+          name="customized-color"
+          defaultValue={userRating}
+          getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
+          icon={<FavoriteIcon fontSize="inherit" />}
+          emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+          onChange={(e, newValue)=>{setUserRating(newValue as number)}}
         />
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="text-white rounded-xl bg-indigo-600 hover:bg-[#ffd60b] hover:text-gray-700 px-3 py-2 font-sans font-medium mt-2"
-        >
-          {loading ? "Submitting..." : "Submit Review"}
-        </button>
-      </form>
+          <label className="block mb-2 font-semibold">Review:</label>
+          <textarea
+            value={userReview}
+            onChange={(e) => setUserReview(e.target.value)}
+            className="w-full border p-2 rounded"
+            placeholder="Write your review..."
+          />
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="text-white rounded-xl bg-indigo-600 hover:bg-[#ffd60b] hover:text-gray-700 px-3 py-2 font-sans font-medium mt-2"
+          >
+            {loading ? "Submitting..." : "Submit Review"}
+          </button>
+        </form>
     </div>
+  </div>
   );
 }
