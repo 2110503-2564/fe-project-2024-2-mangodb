@@ -87,7 +87,8 @@ export default function Booking() {
       setCheckOutDate(checkOut);
       const daysDifference = checkOut.diff(checkIn, "day");
       setTotalLength(daysDifference);
-      setPrice(daysDifference * 100);
+      setPrice(daysDifference * (selectedRoom?.pricePerNight || 0));
+
     }
   };
 
@@ -175,7 +176,7 @@ export default function Booking() {
 
           {/* Total Length of Stay and Price */}
           <div className="font-base text-gray-600 p-2 bg-indigo-200 inline-block rounded-xl">
-            Total {totalLength} Days, {price} $
+            Total {totalLength} Days, {price} ฿
           </div>
 
           {/* Submit Button */}
