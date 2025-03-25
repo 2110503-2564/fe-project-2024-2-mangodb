@@ -11,7 +11,7 @@ export default async function updateRoom(
   imageSrc: string
 ) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/hotels/${hotelId}/rooms/${roomId}`,
+    `${process.env.BACKEND_URL}/api/v1/hotels/${hotelId}/rooms/${roomId}`,
     {
       method: "PUT",
       headers: {

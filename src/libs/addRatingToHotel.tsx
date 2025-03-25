@@ -9,7 +9,7 @@ export default async function addRatingToHotel(
   console.log("Review:", { rating: userRating, review: userReview });
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/hotels/${hotelId}/ratings`,
+    `${process.env.BACKEND_URL}/api/v1/hotels/${hotelId}/ratings`,
     {
       method: "POST",
       headers: {

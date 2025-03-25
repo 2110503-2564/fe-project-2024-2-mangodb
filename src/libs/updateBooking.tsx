@@ -5,7 +5,7 @@ export default async function updateBooking(
   userCheckOutDate: Date
 ) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/bookings/${bookingId}`,
+    `${process.env.BACKEND_URL}/api/v1/bookings/${bookingId}`,
     {
       method: "PUT",
       headers: {

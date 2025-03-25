@@ -7,7 +7,7 @@ export default async function updateHotel(
   imageSrc: string
 ) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/hotels/${hotelId}`,
+    `${process.env.BACKEND_URL}/api/v1/hotels/${hotelId}`,
     {
       method: "PUT",
       headers: {

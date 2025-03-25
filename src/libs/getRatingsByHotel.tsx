@@ -1,6 +1,6 @@
 export default async function getRatingsByHotel(hotelId: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/hotels/${hotelId}/ratings`
+    `${process.env.BACKEND_URL}/api/v1/hotels/${hotelId}/ratings`
   );
 
   if (!response.ok) {

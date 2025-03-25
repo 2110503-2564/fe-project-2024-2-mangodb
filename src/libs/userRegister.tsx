@@ -6,7 +6,7 @@ export default async function userRegister(
   userPassword: string
 ) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/register`,
+    `${process.env.BACKEND_URL}/api/v1/auth/register`,
     {
       method: "POST",
       headers: {

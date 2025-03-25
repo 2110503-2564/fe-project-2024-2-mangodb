@@ -14,7 +14,7 @@ const nextConfig = {
   },
   env: {
     FRONTEND_URL: process.env.FRONTEND_URL,
-    BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    BACKEND_URL: process.env.BACKEND_URL,
   },
   async headers() {
     return [

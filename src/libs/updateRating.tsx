@@ -5,7 +5,7 @@ export default async function updateRating(
   userReview: string
 ) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/hotels/${hotelId}/ratings`,
+    `${process.env.BACKEND_URL}/api/v1/hotels/${hotelId}/ratings`,
     {
       method: "PUT",
       headers: {
