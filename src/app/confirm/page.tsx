@@ -70,7 +70,7 @@ export default function ConfirmPage() {
   };
 
   return (
-    <main className="flex flex-col md:flex-row items-center justify-center gap-12 bg-white min-h-screen">
+    <main className="flex md:flex-row justify-center gap-12 bg-white items-center mt-[20vh]">
       <div className="border border-gray-400 w-[450px] h-[300px]">
         <Image
           src={roomImg || "/img/fallback.jpg"}
@@ -80,9 +80,9 @@ export default function ConfirmPage() {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="bg-[#EFEFEF] p-6 rounded-3xl border border-gray-400 shadow-md max-w-md w-full text-gray-800">
+      <div className="bg-[#EFEFEF] p-6 rounded-3xl border border-gray-400 shadow-md max-w-md w-full text-gray-800 flex flex-col">
         <h1 className="text-3xl font-extrabold mb-1">{hotelName}</h1>
-        <p className="text-gray-500 text-md font-semibold flex items-center mb-2">
+        <p className="text-gray-500 text-md font-semibold flex items-center mb-2 ">
           <img
             src="/img/location-pin.svg"
             alt="Location Icon"
