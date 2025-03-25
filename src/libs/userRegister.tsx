@@ -22,8 +22,10 @@ export default async function userRegister(
     }
   );
 
+  const data = await response.json();
+
   if (!response.ok) {
-    throw new Error("Failed to register");
+    throw new Error(data.msg || "Registration failed");
   }
 
   return await response.json();
