@@ -117,7 +117,7 @@ export default function SearchBar() {
           }}
           min={minDate}
           className="outline-none text-gray-500 text-sm bg-transparent w-full hover:cursor-pointer hover:bg-gray-100 transition-colors duration-200 rounded"
-/>
+        />
       </div>
 
       {/* Divider */}

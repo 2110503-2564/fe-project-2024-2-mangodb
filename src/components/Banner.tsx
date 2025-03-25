@@ -26,13 +26,13 @@ export default function Banner() {
         className={styles.image}
       />
       <div className={styles.bannerText}>
-        <h1 className="text-4xl font-medium text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,1)] font-tiltWarp text-2xl">
+        <h1 className="text-5xl font-medium text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,1)] font-tiltWarp text-2xl">
           Find your dream stay-
           <br />
           easy
         </h1>
         <h3
-          className="text-xl font-medium text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,1)] font-tiltWarp text-base 
+          className="ml-1 mt-6 text-xl font-medium text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,1)] font-tiltWarp text-base 
          mb-10"
         >
           bookingbest rates, exceptional service.
