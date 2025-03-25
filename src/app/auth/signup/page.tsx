@@ -95,7 +95,7 @@ export default function SignUp() {
           <div className="font-semibold text-white">Email</div>
           <input
             type="email"
-            placeholder="Email"
+            placeholder="example@gmail.com"
             value={userEmail}
             onChange={(e) => setUserEmail(e.target.value)}
             className="p-2 border rounded-xl mb-3 pr-20"
