@@ -57,6 +57,8 @@ export default function SignUp() {
         msg = "This Email is already exist.";
       } else if (error.message === "This Username is already exist.") {
         msg = "This Username is already exist.";
+      } else if (error.message === "This Tel is already exist.") {
+        msg = "This Tel is already exist.";
       }
       setError(msg);
     }
