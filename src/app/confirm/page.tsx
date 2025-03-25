@@ -36,7 +36,10 @@ export default function ConfirmPage() {
     : "";
 
   const handleConfirm = async () => {
-    if (!session?.user?.token || !hotelId || !roomId || !checkIn || !checkOut) {
+    if (!session?.user?.token) {
+      alert("You need to Sign In before Booking.")
+      return;
+    } else if (!hotelId || !roomId || !checkIn || !checkOut) {
       console.error("Missing booking data or session");
       return;
     }
