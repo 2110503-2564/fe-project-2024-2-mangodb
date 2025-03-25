@@ -22,6 +22,9 @@ export default function SearchBar() {
   const [adult, setAdult] = useState(1);
   const [children, setChildren] = useState(0);
   const router = useRouter();
+  const [maxCheckOut, setMaxCheckOut] = useState("");
+
+  const minDate = new Date().toISOString().split("T")[0];
 
   const handleSearch = () => {
     if (!location || !checkIn || !checkOut) {
@@ -105,9 +108,16 @@ export default function SearchBar() {
         <input
           type="date"
           value={checkIn}
-          onChange={(e) => setCheckIn(e.target.value)}
+          onChange={(e) => {
+            setCheckIn(e.target.value);
+            const maxDate = new Date(e.target.value);
+            maxDate.setDate(maxDate.getDate() + 3);
+            setCheckOut(""); // Reset checkOut if checkIn changes
+            setMaxCheckOut(maxDate.toISOString().split("T")[0]);
+          }}
+          min={minDate}
           className="outline-none text-gray-500 text-sm bg-transparent w-full hover:cursor-pointer hover:bg-gray-100 transition-colors duration-200 rounded"
-        />
+/>
       </div>
 
       {/* Divider */}
@@ -120,6 +130,8 @@ export default function SearchBar() {
           type="date"
           value={checkOut}
           onChange={(e) => setCheckOut(e.target.value)}
+          min={checkIn}
+          max={maxCheckOut}
           className="outline-none text-gray-500 text-sm bg-transparent w-full"
         />
       </div>
