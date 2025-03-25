@@ -115,6 +115,11 @@ export default function Booking() {
   const makeBooking = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (totalLength > 3) {
+      alert("You can only booking for 3 nights");
+      return;
+    }
+
     if (hotel && room && checkInDate && checkOutDate && selectedRoom) {
       const checkInStr = checkInDate.toISOString();
       const checkOutStr = checkOutDate.toISOString();
