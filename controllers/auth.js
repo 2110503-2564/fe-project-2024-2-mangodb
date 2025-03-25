@@ -18,15 +18,14 @@ exports.register = async (req, res, next) => {
     const convertedHotelId =
       role === "admin hotel" ? new mongoose.Types.ObjectId(hotelId) : undefined;
 
-      const existingTel = await User.findOne({ tel });
-      if (existingTel) {
-        return res.status(400).json({
-          success: false,
-          msg: "This Tel is already exist.",
-        });
-      }
+    const existingTel = await User.findOne({ tel });
+    if (existingTel) {
+      return res.status(400).json({
+        success: false,
+        msg: "This Tel is already exist.",
+      });
+    }
 
-    // ✅ ตรวจสอบว่า email ซ้ำหรือไม่
     const existingEmail = await User.findOne({ email });
     if (existingEmail) {
       return res.status(400).json({
@@ -35,7 +34,6 @@ exports.register = async (req, res, next) => {
       });
     }
 
-    // ✅ ตรวจสอบว่า username ซ้ำหรือไม่
     const existingUsername = await User.findOne({ name });
     if (existingUsername) {
       return res.status(400).json({
@@ -44,7 +42,6 @@ exports.register = async (req, res, next) => {
       });
     }
 
-    // ✅ Create user ถ้าไม่มีซ้ำ
     const user = await User.create({
       name,
       tel,
@@ -54,7 +51,6 @@ exports.register = async (req, res, next) => {
       hotelId: convertedHotelId,
     });
 
-    // ✅ ส่ง token กลับ
     sendTokenResponse(user, 200, res);
   } catch (err) {
     console.log(err.stack);
