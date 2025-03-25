@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import getHotels from "@/libs/getHotels";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default function SearchBar() {
   const [hotels, setHotels] = useState<HotelItem[]>([]);
@@ -23,8 +25,10 @@ export default function SearchBar() {
   const [children, setChildren] = useState(0);
   const router = useRouter();
   const [maxCheckOut, setMaxCheckOut] = useState("");
+  const [minDate, setMinDate] = useState(new Date().toISOString().split("T")[0]);
+  const { data: session, status } = useSession();
 
-  const minDate = new Date().toISOString().split("T")[0];
+  const token = session?.user.token;
 
   const handleSearch = () => {
     if (!location || !checkIn || !checkOut) {
@@ -49,7 +53,15 @@ export default function SearchBar() {
       setHotels(result.data);
     }
 
+    async function fetchUserRole() {
+      const user = await getUserProfile(token as string);
+      if (user.data.role === 'admin') {
+        setMinDate(Date())
+      }
+    }
+
     fetchHotels();
+    fetchUserRole();
   }, []);
   const uniqueHotels = hotels.reduce((acc: HotelItem[], curr) => {
     if (!acc.find((h) => h.address === curr.address)) {
@@ -57,6 +69,16 @@ export default function SearchBar() {
     }
     return acc;
   }, []);
+
+  async function handleSetCheckOut(k:string) {
+    const user = await getUserProfile(token as string)
+    if (user.data.role === 'admin'){
+      setMaxCheckOut(Date());
+    } else {
+      setMaxCheckOut(k);
+    }
+    console.log(k);
+  }
 
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between bg-white shadow-md rounded-full p-4 sm:p-2 max-w-full sm:max-w-[72rem] mx-auto z-30 relative">
@@ -113,7 +135,7 @@ export default function SearchBar() {
             const maxDate = new Date(e.target.value);
             maxDate.setDate(maxDate.getDate() + 3);
             setCheckOut(""); // Reset checkOut if checkIn changes
-            setMaxCheckOut(maxDate.toISOString().split("T")[0]);
+            handleSetCheckOut(maxDate.toISOString().split("T")[0]);
           }}
           min={minDate}
           className="outline-none text-gray-500 text-sm bg-transparent w-full hover:cursor-pointer hover:bg-gray-100 transition-colors duration-200 rounded"
