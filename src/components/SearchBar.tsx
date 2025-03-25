@@ -56,7 +56,7 @@ export default function SearchBar() {
   }, []);
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between bg-white shadow-md rounded-full p-4 sm:p-2 max-w-full sm:max-w-[72rem] mx-auto z-30 relative">
+    <div className="mt-[10%] flex flex-col sm:flex-row items-center justify-between bg-white shadow-md rounded-full p-4 sm:p-2 max-w-full sm:max-w-[72rem] mx-auto z-30 relative">
       {/* Location */}
       <div className="flex items-center gap-2 sm:gap-3 px-2 flex-grow min-w-[10rem]">
         <FaLocationDot className="text-gray-500" />
