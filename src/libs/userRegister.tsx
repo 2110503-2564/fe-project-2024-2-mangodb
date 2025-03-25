@@ -28,5 +28,5 @@ export default async function userRegister(
     throw new Error(data.msg || "Registration failed");
   }
 
-  return await response.json();
+  return data;
 }
