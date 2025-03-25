@@ -124,7 +124,7 @@ export default function UserProfile() {
           <p className="text-[30px] text-[#456DF2] font-bold">
             {user?.email || "N/A"}
           </p>
-          <hr className="mt-2 bordser-gray-300" />
+          <hr className="mt-2 border-gray-300" />
         </div>
 
         {/* Telephone */}
