@@ -9,15 +9,34 @@ exports.register = async (req, res, next) => {
     const { name, tel, email, password, role, hotelId } = req.body;
 
     if (role === "admin hotel" && !hotelId) {
-      return res
-        .status(400)
-        .json({ success: false, msg: "Hotel ID is required for admin hotel" });
+      return res.status(400).json({
+        success: false,
+        msg: "Hotel ID is required for admin hotel",
+      });
     }
 
     const convertedHotelId =
       role === "admin hotel" ? new mongoose.Types.ObjectId(hotelId) : undefined;
 
-    //Create user
+    // ✅ ตรวจสอบว่า email ซ้ำหรือไม่
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({
+        success: false,
+        msg: "This Email is already exist.",
+      });
+    }
+
+    // ✅ ตรวจสอบว่า username ซ้ำหรือไม่
+    const existingUsername = await User.findOne({ name });
+    if (existingUsername) {
+      return res.status(400).json({
+        success: false,
+        msg: "This Username is already exist.",
+      });
+    }
+
+    // ✅ Create user ถ้าไม่มีซ้ำ
     const user = await User.create({
       name,
       tel,
@@ -27,13 +46,11 @@ exports.register = async (req, res, next) => {
       hotelId: convertedHotelId,
     });
 
-    //Create token
-    // const token = user.getSignedJwtToken();
-    // res.status(200).json({ success: true, token });
+    // ✅ ส่ง token กลับ
     sendTokenResponse(user, 200, res);
   } catch (err) {
-    res.status(400).json({ success: false });
     console.log(err.stack);
+    res.status(500).json({ success: false, msg: "Server Error" });
   }
 };
 
